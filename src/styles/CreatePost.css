@@ -1,0 +1,39 @@
+.create-post input[type="text"] {
+    width: calc(100% - 2rem);
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .create-post .quill {
+    margin-bottom: 1rem;
+  }
+  
+  .create-post button {
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+   
+  }
+  
+  .create-post button:hover {
+    background-color: #575757;
+  }
+  .category-selection {
+    margin-top: 1rem;
+
+  }
+  
+  .category-selection label {
+  
+    margin-bottom: 0.5rem;
+  
+  }
+  
+  .category-selection input[type="checkbox"] {
+    margin-right: 0.5rem;
+  }

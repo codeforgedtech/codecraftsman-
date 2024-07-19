@@ -1,0 +1,161 @@
+/* Post.css */
+.post {
+  padding: 2rem;
+  background-color: #ffffff; /* En renare vit bakgrund */
+  border: 1px solid #ddd; /* Mjukare grå kantlinje */
+  border-radius: 8px; /* Mjukare hörn */
+  margin-bottom: 2rem;
+  max-width: 90%;
+  margin: 0 auto; /* Centrerar innehållet horisontellt */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lätt skugga för djup */
+}
+
+.post h1 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 2rem; /* Större rubrik för bättre synlighet */
+}
+
+.post .content {
+  margin: 1rem 0;
+  line-height: 1.8; /* Ökad radavstånd för bättre läsbarhet */
+  padding: 0 0.5rem; /* Extra utrymme runt texten */
+}
+
+.comment-section {
+  margin-top: 2rem;
+}
+
+.comment-section input {
+  width: calc(100% - 2rem);
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem; /* Justera textstorleken */
+}
+
+.comment-section .button-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.comment-section button {
+  padding: 0.75rem 1.25rem;
+  background-color: #007bff; /* Tydligare knappfärg */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem; /* Justera textstorleken */
+  transition: background-color 0.3s, transform 0.2s; /* Tydligare övergångseffekter */
+}
+
+.comment-section button:hover {
+  background-color: #0056b3; /* Mörkare blå för hover-effekt */
+  transform: scale(1.05); /* Liten förstoring vid hover */
+}
+
+.comment-section .comment {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+  background-color: #f9f9f9; /* Ljus bakgrund för kommentarer */
+  border-radius: 5px;
+}
+
+.comment-section .comment:last-child {
+  border-bottom: none;
+}
+
+.image-gallery {
+  margin-top: 1rem; /* Ger lite utrymme ovanför bildgalleriet */
+}
+
+.post-image {
+  max-width: 100%; /* Full bredd för att säkerställa responsivitet */
+  height: auto; /* Behåller bildens aspektförhållande */
+  margin-bottom: 1rem; /* Mellanrum under bilden */
+  border-radius: 5px; /* Rundar hörnen på bilderna */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lätt skugga under bilderna */
+}
+
+/* Bild som flyter till vänster */
+.image-text-item.left .post-image {
+  float: left;
+  margin-right: 20px; /* Avstånd mellan bild och text */
+}
+
+/* Bild som flyter till höger */
+.image-text-item.right .post-image {
+  float: right;
+  margin-left: 20px; /* Avstånd mellan bild och text */
+}
+.categories {
+  margin-top: 2rem;
+  width: 100%; /* Anpassa till full bredd */
+  text-align: center;
+  display: flex; /* Använd Flexbox */
+  flex-wrap: wrap; /* Tillåter att element går till nästa rad vid behov */
+  justify-content: center; /* Centerar element horisontellt */
+}
+
+.categories h4 {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 1rem;
+  width: 100%; /* Ser till att rubriken är på egen rad */
+}
+
+.categories ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Använd Flexbox för listan */
+  flex-wrap: wrap; /* Tillåter listobjekt att gå till nästa rad */
+  gap: 0.5rem; /* Mellanrum mellan listobjekt */
+  justify-content: center; /* Centerar listobjekt horisontellt */
+}
+
+.categories ul li {
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem 1rem; /* Ökat padding för bättre utseende */
+  color: #333;
+  font-size: 1rem;
+  cursor: pointer; /* Visar att listobjekten är klickbara */
+  transition: background-color 0.3s ease; /* För smidig hover-effekt */
+}
+
+.categories ul li:hover {
+  background-color: #e0e0e0; /* Ljusare bakgrund på hover */
+}
+
+/* För mindre skärmar, ta bort float och gör att bilderna blir fullbredd */
+@media (max-width: 768px) {
+  .post-image {
+    float: none;
+    display: block;
+    margin: 0 0 5px 0;
+    max-width: 100%; /* Gör bilderna fullbredd på mobila enheter */
+  }
+  .post h1 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 20px; /* Större rubrik för bättre synlighet */
+  }
+  .post .content {
+    padding: 0 1rem; /* Öka padding på små skärmar */
+  }
+  
+  .comment-section input {
+    width: calc(100% - 1rem); /* Justera bredden på små skärmar */
+    padding: 0.5rem; /* Minska padding */
+  }
+
+  .comment-section button {
+    padding: 0.5rem 1rem; /* Justera padding på små skärmar */
+    font-size: 0.9rem; /* Justera textstorlek */
+  }
+}

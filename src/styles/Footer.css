@@ -1,0 +1,73 @@
+/* Footer.css */
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 0; /* Minska vertikal padding */
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 0 1rem; /* Minska horisontell padding */
+  }
+  
+  .footer-section {
+    flex: 1;
+    margin: 0.5rem; /* Minska marginal för att spara utrymme */
+    min-width: 150px; /* Justera min-bredd för att passa mindre skärmar */
+  }
+  .about{
+text-align: left; /* Justera min-bredd för att passa mindre skärmar */
+  }
+  .footer-section h2 {
+    margin-bottom: 0.5rem; /* Minska marginal under rubriker */
+    font-size: 1.2rem; /* Minska fontstorlek för rubriker */
+    color: #fff;
+  }
+  
+  .footer-section p {
+    font-size: 0.9rem; /* Minska fontstorlek för texten */
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-section ul li {
+    margin-bottom: 0.3rem; /* Minska marginal mellan listpunkter */
+  }
+  
+  .footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-section ul li a:hover {
+    color: #00bfff;
+  }
+  
+  .socials a {
+    color: #fff;
+    margin: 0 5px; /* Minska marginaler för sociala ikoner */
+    font-size: 1.2rem; /* Minska fontstorlek för sociala ikoner */
+    transition: color 0.3s ease;
+  }
+  
+  .socials a:hover {
+    color: #00bfff;
+  }
+  
+  .footer-bottom {
+    margin-top: 0.5rem; /* Minska marginal ovanför footer-bottom */
+    font-size: 0.9rem; /* Minska fontstorlek för footer-bottom */
+  }
+  
+  
