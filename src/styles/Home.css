@@ -1,0 +1,92 @@
+/* Home.css */
+.container.home {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  max-width: 90%;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+.category-filter {
+  margin-bottom: 20px;
+}
+
+.category-filter h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.category-filter select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.post-link {
+  display: block;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  background-color: #f4f4f4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+  text-decoration: none;
+  height: 260px;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.post-link:hover {
+  background-color: #e9e9e9;
+  transform: translateY(-2px);
+}
+
+.post-link img {
+  width: 300px; /* Justera storleken efter behov */
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0 15px 10px 0; /* Marginaler för att skapa utrymme runt bilden */
+  float: left;
+}
+
+.post-link .post-info {
+  overflow: hidden; /* För att förhindra att texten flödar utanför sin container */
+}
+
+.post-link h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.post-link p {
+  margin: 0.5rem 0 0;
+  color: #333;
+  font-size: 0.9rem;
+
+}
+@media (max-width: 768px) {
+.post-link {
+  flex-direction: column; /* Stack image and text vertically */
+  padding: 0.5rem; /* Reduce padding on smaller screens */
+}
+
+.post-link img {
+  margin: 0 0 10px 0; /* Remove margin-right on smaller screens */
+}
+
+.post-link h2 {
+  font-size: 1.25rem; /* Adjust font size for smaller screens */
+}
+
+.post-link p {
+  font-size: 0.8rem; /* Adjust font size for smaller screens */
+}
+}

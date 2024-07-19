@@ -1,0 +1,73 @@
+/* Comments.css */
+.comment-section {
+  margin-top: 2rem;
+}
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: vertical; /* Gör att användaren kan ändra höjden på textrutan vertikalt */
+}
+
+.button-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.button-container button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+  background-color: #0056b3;
+}
+
+.google-login-button {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #db4437;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.google-login-button:hover {
+  background-color: #c23321;
+}
+
+.google-logo {
+  width: 20px;
+  height: auto;
+  margin-right: 0.5rem;
+}
+
+.comment {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.comment p {
+  margin: 0.5rem 0;
+}
+
+.comment p strong {
+  color: #333;
+}
