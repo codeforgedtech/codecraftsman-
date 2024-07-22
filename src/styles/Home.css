@@ -1,4 +1,3 @@
-/* Home.css */
 .container.home {
   padding: 1rem;
   background-color: #f9f9f9;
@@ -14,6 +13,7 @@ h1 {
   color: #333;
   text-align: center;
 }
+
 .category-filter {
   margin-bottom: 20px;
 }
@@ -29,6 +29,7 @@ h1 {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 .post-link {
   display: block;
   padding: 1rem;
@@ -70,23 +71,22 @@ h1 {
   margin: 0.5rem 0 0;
   color: #333;
   font-size: 0.9rem;
-
 }
+
 @media (max-width: 768px) {
-.post-link {
-  flex-direction: column; /* Stack image and text vertically */
-  padding: 0.5rem; /* Reduce padding on smaller screens */
-}
+  .post-link {
+    flex-direction: column; /* Stapla bild och text vertikalt */
+    padding: 0.5rem; /* Minska padding på mindre skärmar */
+  }
 
-.post-link img {
-  margin: 0 0 10px 0; /* Remove margin-right on smaller screens */
-}
+  .post-link img {
+    margin: 0 0 10px 0; /* Ta bort margin-right på mindre skärmar */
+    width: 100%; /* Gör bilderna fullbredd på mobila enheter */
+  }
 
-.post-link h2 {
-  font-size: 1.25rem; /* Adjust font size for smaller screens */
-}
-
-.post-link p {
-  font-size: 0.8rem; /* Adjust font size for smaller screens */
-}
+  .post-link h2,
+  .post-link p,
+  .post-link .post-info {
+    display: none; /* Dölj texten på mindre skärmar */
+  }
 }

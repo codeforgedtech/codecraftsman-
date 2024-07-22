@@ -1,0 +1,106 @@
+.archive {
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto 2rem auto;
+    max-width: 90%;
+  }
+  
+  .archive h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .archive .error {
+    color: #d9534f;
+    background-color: #f9d6d5;
+    border: 1px solid #d9534f;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .archive-year h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .archive-month h3 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .archive-month ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .archive-post {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .archive-post .date-box {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #5bc0de;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-right: 15px;
+  }
+  
+  .archive-post .post-details {
+    display: flex;
+    align-items: center;
+  }
+  
+  .archive-post .thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+  
+  .archive-post .post-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .archive-post .post-title {
+    font-size: 1rem;
+    color: #337ab7;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .archive-post .post-title:hover {
+    color: #23527c;
+  }
+  
+  .archive-post .categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  
+  .archive-post .category {
+    font-size: 0.9rem;
+    color: #777;
+    background-color: #e7e7e7;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { supabase } from '../supabaseClient';
-import { useNavigate } from 'react-router-dom'; // Importera useHistory från react-router-dom
+import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
 import googleLogo from '../images/google-logo.png'; // Ladda in Google-logotypen
 
 const Login = () => {
-  const history = useNavigate(); // Skapa en instans av useHistory
+  const navigate = useNavigate();
 
   const signInWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
@@ -28,9 +28,9 @@ const Login = () => {
           }
 
           if (user.isAdmin) {
-            history.push('/admin'); // Omdirigera administratören till admin-sidan
+            navigate('/admin'); // Omdirigera administratören till admin-sidan
           } else {
-            history.push('/home'); // Omdirigera vanliga användare till home-sidan
+            navigate('/home'); // Omdirigera vanliga användare till home-sidan
           }
         }
       });
@@ -41,11 +41,11 @@ const Login = () => {
     };
 
     checkUser();
-  }, [history]);
+  }, [navigate]);
 
   return (
     <div className="login">
-      <button onClick={signInWithGoogle}>
+      <button onClick={signInWithGoogle} className="google-signin-button">
         <img src={googleLogo} alt="Google logo" className="google-logo" />
         Sign in with Google
       </button>
@@ -54,3 +54,4 @@ const Login = () => {
 };
 
 export default Login;
+

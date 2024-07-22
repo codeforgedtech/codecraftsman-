@@ -1,0 +1,39 @@
+.container.category-posts {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  max-width: 90%;
+  }
+  
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .post-link {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .post-thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+  
+  .post-info h2 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  
+  .post-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
