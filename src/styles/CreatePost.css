@@ -1,14 +1,26 @@
+.create-post{
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  max-width: 90%;
+  height: 100vh;
+}
+
 .create-post input[type="text"] {
     width: calc(100% - 2rem);
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-    max-width: 90%;
+    max-width: 80%;
   }
   
   .create-post .quill {
     margin-bottom: 1rem;
+    max-width: 80%;
+   
   }
   
   .create-post button {

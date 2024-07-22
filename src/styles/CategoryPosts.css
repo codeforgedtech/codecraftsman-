@@ -4,6 +4,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 2rem;
+  position: relative; 
   max-width: 90%;
   }
   
@@ -36,4 +37,23 @@
     margin: 0;
     font-size: 0.9rem;
     color: #555;
+  }
+  .stamp {
+    position: absolute;
+    top: 0;
+    right: 0; /* Flytta stämpeln till höger */
+    transform: rotate(10deg); /* Justera vinkeln efter behov */
+    transform-origin: right top; /* Rotera från det övre högra hörnet */
+    background-color: #f1f1f1; /* Bakgrundsfärg för stämpeln */
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  /* Anpassa rubrikens stil */
+  .stamp h1 {
+    font-size: 1rem;
+    margin: 0;
+    color: #333;
   }

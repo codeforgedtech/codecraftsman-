@@ -1,106 +1,215 @@
+/* Container for the archive section */
 .archive {
-    padding: 1rem;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin: 0 auto 2rem auto;
-    max-width: 90%;
-  }
-  
-  .archive h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #333;
+    padding: 1.5rem;
+    background-color: #ffffff; /* White background for a clean look */
+    border: 1px solid #ddd; /* Lighter border color for a subtle look */
+    border-radius: 8px; /* Slightly larger border radius for a softer appearance */
+    margin: 2rem auto;
+    max-width: 90%; /* Adjusted for better responsiveness */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for a lifted effect */
+    position: relative; /* Ensure relative positioning for absolute children */
+}
+
+/* Heading style */
+.archive h1 {
+    font-size: 2rem; /* Slightly smaller font size for better visibility on small screens */
+    margin-bottom: 1rem; /* Adjusted margin for better spacing */
+    color: #222; /* Darker text color for better contrast */
     text-align: center;
-  }
-  
-  .archive .error {
-    color: #d9534f;
-    background-color: #f9d6d5;
-    border: 1px solid #d9534f;
-    padding: 10px;
+}
+
+/* Error message style */
+.archive .error {
+    color: #c00; /* Darker red for better visibility */
+    background-color: #fdd; /* Lighter background for the error box */
+    border: 1px solid #c00;
+    padding: 1rem; /* Adjusted padding for consistency */
+    border-radius: 6px; /* Slightly larger border radius for a softer look */
+    margin-bottom: 1rem; /* Adjusted margin for better spacing */
+    text-align: center;
+}
+
+/* Year heading style */
+.archive-year {
+    position: relative; /* Ensure the stamp is positioned relative to this container */
+    margin-bottom: 1rem;
+}
+
+.archive-year h2 {
+    font-size: 1.6rem; /* Slightly smaller font size for better readability on small screens */
+    color: #333;
+    margin-bottom: 1rem;
+    position: relative; /* Ensure relative positioning for the stamp */
+}
+
+/* Year stamp style */
+.year-stamp {
+    position: absolute;
+    top: -1rem; /* Adjust position for better alignment */
+    left: -1.5rem; /* Move to the left side */
+    transform: rotate(-15deg); /* Adjust the rotation angle as needed */
+    transform-origin: left top; /* Rotate from the top-left corner */
+    background-color: #f1f1f1; /* Light background color for the stamp */
+    padding: 0.5rem 1rem;
     border-radius: 4px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .archive-year h2 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .archive-month h3 {
-    font-size: 1.5rem;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .archive-month ul {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for a lifted effect */
+    z-index: 1; /* Ensure it's above other content */
+    font-size: 1.2rem; /* Adjust font size for better readability on small screens */
+    color: #333; /* Darker text color for better contrast */
+}
+
+/* Month heading style */
+.archive-month {
+    margin-left: 1rem; /* Adjust margin for better spacing */
+}
+
+.archive-month h3 {
+    font-size: 1.4rem; /* Adjusted font size for smaller screens */
+    color: #444; /* Slightly darker color for better readability */
+    margin-left: 30px; /* Adjusted margin for alignment */
+}
+
+/* List style for months */
+.archive-month ul {
     list-style: none;
     padding: 0;
-  }
-  
-  .archive-post {
+    margin: 0;
+}
+
+/* Post container style */
+.archive-post {
     display: flex;
-    align-items: center;
-    padding: 10px 0;
-  }
-  
-  .archive-post .date-box {
-    width: 50px;
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    align-items: flex-start; /* Align items to the start */
+    padding: 0.8rem 0; /* Reduced padding for a cleaner look */
+    border-bottom: 1px solid #eee; /* Subtle divider between posts */
+}
+
+/* Date box style */
+.archive-post .date-box {
+    width: 50px; /* Slightly smaller for better readability on small screens */
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #5bc0de;
-    color: #fff;
-    font-size: 1.5rem;
+    background-color: #ccc; /* Primary color for consistency */
+    color: #000;
+    font-size: 1.4rem; /* Slightly smaller font size for better readability */
     font-weight: bold;
-    border-radius: 4px;
-    margin-right: 15px;
-  }
-  
-  .archive-post .post-details {
+    border-radius: 6px; /* Consistent border radius */
+    margin-bottom: 0.5rem; /* Increased margin for better spacing */
+}
+
+/* Post details container style */
+.archive-post .post-details {
     display: flex;
-    align-items: center;
-  }
-  
-  .archive-post .thumbnail {
-    width: 50px;
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    align-items: flex-start; /* Align items to the start */
+}
+
+/* Thumbnail style */
+.archive-post .thumbnail {
+    width: 50px; /* Slightly smaller thumbnail for better responsiveness */
     height: 50px;
-    border-radius: 4px;
+    border-radius: 6px;
     object-fit: cover;
-    margin-right: 15px;
-  }
-  
-  .archive-post .post-info {
+    margin-bottom: 0.5rem; /* Increased margin for better spacing */
+}
+
+/* Post information container style */
+.archive-post .post-info {
     display: flex;
     flex-direction: column;
-  }
-  
-  .archive-post .post-title {
-    font-size: 1rem;
-    color: #337ab7;
+}
+
+/* Post title style */
+.archive-post .post-title {
+    font-size: 1rem; /* Adjusted font size for better readability */
+    color: #007bff; /* Consistent link color */
     text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .archive-post .post-title:hover {
-    color: #23527c;
-  }
-  
-  .archive-post .categories {
+    transition: color 0.3s, font-weight 0.3s; /* Added transition for font weight */
+}
+
+.archive-post .post-title:hover {
+    color: #0056b3; /* Darker shade of primary color on hover */
+    font-weight: bold; /* Bold on hover for emphasis */
+}
+
+/* Categories container style */
+.archive-post .categories {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-  }
-  
-  .archive-post .category {
-    font-size: 0.9rem;
-    color: #777;
-    background-color: #e7e7e7;
-    padding: 2px 8px;
+    margin-top: 0.5rem; /* Added margin for spacing */
+}
+
+/* Category style */
+.archive-post .category {
+    font-size: 0.8rem; /* Adjusted font size for better readability on smaller screens */
+    color: #555; /* Darker text color for readability */
+    background-color: #f7f7f7; /* Lighter background for categories */
+    padding: 3px 8px;
     border-radius: 4px;
-  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Container adjustments for tablets and mobile */
+    .archive {
+        max-width: 100%; /* Full width on smaller screens */
+        padding: 1rem; /* Adjusted padding */
+    }
+
+    .archive h1 {
+        font-size: 1.8rem; /* Slightly smaller font size */
+    }
+
+    .archive-month h3 {
+        font-size: 1.2rem; /* Smaller font size for month heading */
+        margin-left: 20px; /* Adjust margin */
+    }
+
+    .archive-post {
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .archive-post .thumbnail {
+        width: 40px; /* Smaller thumbnail */
+        height: 40px;
+    }
+
+    .archive-post .date-box {
+        width: 40px; /* Smaller date box */
+        height: 40px;
+        font-size: 1.2rem; /* Smaller font size */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Container adjustments for mobile phones */
+    .archive {
+        padding: 0.5rem; /* Further reduced padding */
+    }
+
+    .archive h1 {
+        font-size: 1.5rem; /* Even smaller font size */
+    }
+
+    .archive-month h3 {
+        font-size: 1rem; /* Even smaller font size */
+        margin-left: 50px; /* Adjust margin */
+    }
+
+    .archive-post .thumbnail {
+        width:95%; /* Smaller thumbnail */
+        height: auto;
+    }
+
+    .archive-post .date-box {
+        width: 95%; /* Smaller date box */
+        height: 30px;
+        font-size: 1rem; /* Smaller font size */
+    }
+}
+
   

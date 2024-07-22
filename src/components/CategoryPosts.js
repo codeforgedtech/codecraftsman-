@@ -27,7 +27,9 @@ const CategoryPosts = () => {
 
   return (
     <div className="container category-posts">
-      <h1>Posts in "{category}"</h1>
+      <div className="stamp">
+        <h1>{category}</h1>
+      </div>
       <div className="posts-list">
         {posts.length > 0 ? (
           posts.map((post) => (
@@ -37,7 +39,7 @@ const CategoryPosts = () => {
               )}
               <div className="post-info">
                 <h2>{post.title}</h2>
-                <p dangerouslySetInnerHTML={{ __html: post.content.substring(0, 100) }} />
+                <p dangerouslySetInnerHTML={{ __html: post.content.substring(0, 600) }} />
               </div>
             </Link>
           ))
