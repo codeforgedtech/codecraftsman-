@@ -1,13 +1,11 @@
 /* Post.css */
 .post {
-  padding: 2rem;
-  background-color: #ffffff; /* En renare vit bakgrund */
-  border: 1px solid #ddd; /* Mjukare grå kantlinje */
-  border-radius: 8px; /* Mjukare hörn */
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   margin-bottom: 2rem;
   max-width: 90%;
-  margin: 0 auto; /* Centrerar innehållet horisontellt */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lätt skugga för djup */
 }
 
 .post h1 {
@@ -99,7 +97,10 @@
   flex-wrap: wrap; /* Tillåter att element går till nästa rad vid behov */
   justify-content: center; /* Centerar element horisontellt */
 }
-
+.category-link{
+  text-decoration: none;
+  color: #333;
+}
 .categories h4 {
   font-size: 1.25rem;
   color: #333;
@@ -123,6 +124,7 @@
   border-radius: 5px;
   padding: 0.5rem 1rem; /* Ökat padding för bättre utseende */
   color: #333;
+ 
   font-size: 1rem;
   cursor: pointer; /* Visar att listobjekten är klickbara */
   transition: background-color 0.3s ease; /* För smidig hover-effekt */
@@ -133,29 +135,31 @@
 }
 
 /* För mindre skärmar, ta bort float och gör att bilderna blir fullbredd */
-@media (max-width: 768px) {
-  .post-image {
-    float: none;
-    display: block;
-    margin: 0 0 5px 0;
-    max-width: 100%; /* Gör bilderna fullbredd på mobila enheter */
-  }
-  .post h1 {
-    margin-bottom: 1rem;
-    color: #333;
-    font-size: 20px; /* Större rubrik för bättre synlighet */
-  }
-  .post .content {
-    padding: 0 1rem; /* Öka padding på små skärmar */
-  }
-  
-  .comment-section input {
-    width: calc(100% - 1rem); /* Justera bredden på små skärmar */
-    padding: 0.5rem; /* Minska padding */
-  }
 
-  .comment-section button {
-    padding: 0.5rem 1rem; /* Justera padding på små skärmar */
-    font-size: 0.9rem; /* Justera textstorlek */
+  @media (max-width: 768px) {
+    .post {
+      padding: 1rem; /* Justera padding för bättre användning av utrymme */
+      margin: 0 auto; /* Centrerar div:en horisontellt */
+      max-width: 100%; /* Full bredd för att utnyttja hela skärmytan */
+    }
+  
+    .post h1 {
+      font-size: 1.5rem; /* Anpassa rubrikstorleken för små skärmar */
+    }
+  
+    .post .content {
+      padding: 0; /* Ta bort extra padding för att använda hela bredden */
+      margin: 0; /* Ta bort marginaler för att optimera utrymmet */
+      line-height: 1.6; /* Justera radavståndet för läsbarhet */
+    }
+  
+    .comment-section input {
+      width: calc(100% - 1rem); /* Anpassa bredden för att täcka hela div:en */
+      padding: 0.5rem; /* Justera padding */
+    }
+  
+    .comment-section button {
+      padding: 0.5rem 1rem; /* Justera padding för knappar */
+      font-size: 0.9rem; /* Anpassa textstorlek för knappar */
+    }
   }
-}

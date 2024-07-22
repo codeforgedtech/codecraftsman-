@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import Comment from './Comment';
 import '../styles/Post.css';
@@ -51,7 +51,11 @@ const Post = () => {
             <ul>
               {post.categories && post.categories.length > 0 ? (
                 post.categories.map((category, index) => (
-                  <li key={index}>{category}</li>
+                  <li key={index}>
+                    <Link to={`/category/${category}`} className="category-link">
+                      {category}
+                    </Link>
+                  </li>
                 ))
               ) : (
                 <li>No categories</li>
@@ -68,3 +72,5 @@ const Post = () => {
 };
 
 export default Post;
+
+
