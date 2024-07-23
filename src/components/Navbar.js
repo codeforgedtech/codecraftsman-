@@ -217,7 +217,7 @@ const Navbar = () => {
         {isOpen && <Logo src={logo} alt="logo" width={50} height={50} />}
         <MenuItem to="/" onClick={closeMenu}>Home</MenuItem>
         <MenuItem to="/about" onClick={closeMenu}>About</MenuItem>
-        <MenuItem to="/links" onClick={closeMenu}>Links</MenuItem>
+        
         <MenuItem to="/archive" onClick={closeMenu}>Archive</MenuItem>
         {user && (
           <>

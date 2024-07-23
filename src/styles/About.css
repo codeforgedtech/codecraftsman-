@@ -1,0 +1,80 @@
+.about-container {
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 2rem auto;
+    max-width: 90%; /* Adjusted for better responsiveness */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.about-header {
+    margin-bottom: 20px;
+}
+
+.year-stamp span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column; /* Default to column layout on small screens */
+    align-items: center;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column; /* Stack image and text vertically on small screens */
+    align-items: center;
+    gap: 20px; /* Space between image and text */
+}
+
+.profile-picture {
+    border-radius: 10%;
+    width: 150px; /* Smaller size for mobile */
+    height: 150px; /* Smaller size for mobile */
+    object-fit: cover;
+}
+
+.text-content {
+    text-align: center; /* Center-align text for better readability on mobile */
+    max-width: 100%; /* Use full width for text content */
+}
+
+h2 {
+    color: #333;
+}
+
+ul {
+    list-style-type: disc;
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+p {
+    margin: 10px 0;
+}
+
+/* Media Queries for responsiveness */
+@media (min-width: 768px) {
+    .about-content {
+        flex-direction: row; /* Use row layout for larger screens */
+        align-items: flex-start;
+    }
+
+    .profile-section {
+        flex-direction: row; /* Align image and text side by side */
+    }
+
+    .profile-picture {
+        width: 250px; /* Larger size for larger screens */
+        height: 250px; /* Larger size for larger screens */
+    }
+
+    .text-content {
+        text-align: left; /* Align text to the left on larger screens */
+    }
+}

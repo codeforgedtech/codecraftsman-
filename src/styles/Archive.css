@@ -1,106 +1,256 @@
+/* Container for the archive section */
 .archive {
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 2rem auto;
+    max-width: 90%; /* Adjusted for better responsiveness */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Heading style */
+.archive h1 {
+    font-size: 2.5rem; /* Larger font size for desktop */
+    margin-bottom: 1.5rem; /* Increased margin for spacing */
+    color: #222;
+    text-align: center;
+}
+
+/* Error message style */
+.archive .error {
+    color: #c00;
+    background-color: #fdd;
+    border: 1px solid #c00;
     padding: 1rem;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin: 0 auto 2rem auto;
-    max-width: 90%;
-  }
-  
-  .archive h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #333;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
     text-align: center;
-  }
-  
-  .archive .error {
-    color: #d9534f;
-    background-color: #f9d6d5;
-    border: 1px solid #d9534f;
-    padding: 10px;
+}
+
+/* Year heading style */
+.archive-year {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.archive-year h2 {
+    font-size: 2rem; /* Larger font size for desktop */
+    color: #333;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+/* Year stamp style */
+.year-stamp {
+    position: absolute;
+    top: -1.5rem;
+    left: -2rem;
+    transform: rotate(-15deg);
+    transform-origin: left top;
+    background-color: #f1f1f1;
+    padding: 0.5rem 1rem;
     border-radius: 4px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .archive-year h2 {
-    font-size: 1.8rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    font-size: 1.4rem;
     color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .archive-month h3 {
-    font-size: 1.5rem;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .archive-month ul {
+}
+
+/* Month heading style */
+.archive-month {
+    margin-left: 2rem;
+}
+
+.archive-month h3 {
+    font-size: 1.6rem; /* Larger font size for desktop */
+    color: #444;
+    margin-left: 30px;
+}
+
+/* List style for months */
+.archive-month ul {
     list-style: none;
     padding: 0;
-  }
-  
-  .archive-post {
+    margin: 0;
+}
+
+/* Post container style */
+.archive-post {
     display: flex;
     align-items: center;
-    padding: 10px 0;
-  }
-  
-  .archive-post .date-box {
-    width: 50px;
-    height: 50px;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Date box style */
+.archive-post .date-box {
+    width: 60px; /* Larger for better visibility */
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #5bc0de;
-    color: #fff;
-    font-size: 1.5rem;
+    background-color: #ccc;
+    color: #000;
+    font-size: 1.6rem;
     font-weight: bold;
-    border-radius: 4px;
-    margin-right: 15px;
-  }
-  
-  .archive-post .post-details {
+    border-radius: 6px;
+    margin-right: 1rem;
+}
+
+/* Post details container style */
+.archive-post .post-details {
     display: flex;
     align-items: center;
-  }
-  
-  .archive-post .thumbnail {
-    width: 50px;
-    height: 50px;
-    border-radius: 4px;
+}
+
+/* Thumbnail style */
+.archive-post .thumbnail {
+    width: 120px; /* Consistent size for better responsiveness */
+    height: 120px;
+    border-radius: 6px;
     object-fit: cover;
-    margin-right: 15px;
-  }
-  
-  .archive-post .post-info {
+    margin-right: 1rem;
+}
+
+/* Post information container style */
+.archive-post .post-info {
     display: flex;
     flex-direction: column;
-  }
-  
-  .archive-post .post-title {
-    font-size: 1rem;
-    color: #337ab7;
+}
+
+/* Post title style */
+.archive-post .post-title {
+    font-size: 1.2rem;
+    color: #007bff;
     text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .archive-post .post-title:hover {
-    color: #23527c;
-  }
-  
-  .archive-post .categories {
+    transition: color 0.3s, font-weight 0.3s;
+}
+
+.archive-post .post-title:hover {
+    color: #0056b3;
+    font-weight: bold;
+}
+
+/* Categories container style */
+.archive-post .categories {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-  }
-  
-  .archive-post .category {
+    margin-top: 0.5rem;
+}
+
+/* Category style */
+.archive-post .category {
     font-size: 0.9rem;
-    color: #777;
-    background-color: #e7e7e7;
-    padding: 2px 8px;
+    color: #555;
+    background-color: #f7f7f7;
+    padding: 3px 8px;
     border-radius: 4px;
-  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Container adjustments for tablets */
+    .archive {
+        max-width: 95%; /* Almost full width on tablets */
+        padding: 1rem;
+    }
+
+    .archive h1 {
+        font-size: 2rem; /* Adjust font size */
+    }
+
+    .archive-year h2 {
+        font-size: 1.8rem; /* Adjust font size */
+    }
+
+    .archive-month h3 {
+        font-size: 1.4rem; /* Adjust font size */
+        margin-left: 20px; /* Adjust margin */
+    }
+
+    .archive-post {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .archive-post .thumbnail {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 0.5rem;
+    }
+
+    .archive-post .date-box {
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .archive-post .post-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .archive-post .post-title {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Container adjustments for mobile phones */
+    .archive {
+        padding: 0.5rem; /* Further reduced padding */
+    }
+
+    .archive h1 {
+        font-size: 1.5rem;
+       
+    }
+
+    .archive-year h2 {
+        font-size: 1.4rem; /* Adjust font size */
+    
+    }
+
+    .archive-month h3 {
+        font-size: 1.2rem; /* Smaller font size */
+        margin-left: 50px; /* Adjust margin */
+    }
+
+    .archive-post {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .archive-post .thumbnail {
+        width: 90%; /* Smaller thumbnail for mobile */
+        height: auto;
+        margin-bottom: 0.5rem;
+    }
+
+    .archive-post .date-box {
+        width: 90%; /* Full width for mobile */
+        height: auto;
+        font-size: 1rem; /* Smaller font size */
+        text-align: center; /* Center align text */
+    }
+
+    .archive-post .post-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .archive-post .post-title {
+        font-size: 0.9rem; /* Smaller font size */
+    }
+
+    .archive-post .categories {
+        margin-top: 0.5rem;
+    }
+}
+
+
   

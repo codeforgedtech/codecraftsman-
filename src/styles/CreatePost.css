@@ -1,40 +1,70 @@
-.create-post input[type="text"] {
-    width: calc(100% - 2rem);
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    max-width: 90%;
-  }
-  
-  .create-post .quill {
-    margin-bottom: 1rem;
-  }
-  
-  .create-post button {
-    padding: 0.5rem 1rem;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-   
-  }
-  
-  .create-post button:hover {
-    background-color: #575757;
-  }
-  .category-selection {
-    margin-top: 1rem;
+.create-post {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 2rem auto;
+  max-width: 90%; /* Max width for better responsiveness */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: auto; /* Adjust height to content */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
 
+.create-post input[type="text"] {
+  width: 100%; /* Full width on mobile */
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Include padding and border in width */
+}
+
+.create-post .quill {
+  margin-bottom: 1rem;
+  width: 100%; /* Full width on mobile */
+  box-sizing: border-box; /* Include padding and border in width */
+}
+
+.create-post button {
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%; /* Full width on mobile */
+  box-sizing: border-box; /* Include padding and border in width */
+}
+
+.create-post button:hover {
+  background-color: #575757;
+}
+
+.category-selection {
+  margin-top: 1rem;
+}
+
+.category-selection label {
+  display: block; /* Ensure labels stack vertically */
+  margin-bottom: 0.5rem;
+}
+
+.category-selection input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Media Queries for better responsiveness on larger screens */
+@media (min-width: 768px) {
+  .create-post {
+      max-width: 800px; /* Larger max-width on larger screens */
+      margin: 2rem auto;
   }
-  
-  .category-selection label {
-  
-    margin-bottom: 0.5rem;
-  
+
+  .create-post input[type="text"], .create-post .quill {
+      max-width: 100%; /* Remove max-width for larger screens */
   }
-  
-  .category-selection input[type="checkbox"] {
-    margin-right: 0.5rem;
+
+  .create-post button {
+      width: auto; /* Use default button width on larger screens */
   }
+}

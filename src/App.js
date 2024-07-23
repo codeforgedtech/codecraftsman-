@@ -12,6 +12,7 @@ import Navbar from './components/Navbar';
 import PostsManager from './components/PostsManager'; // Importera PostsManager
 import CreatePost from './components/CreatePost';
 import PrivateRoute from './components/PrivatRouter';
+import About from './components/About';
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
           <Route path="/category/:category" element={<CategoryPosts />} />          
           <Route path="/login" element={<Login />} />
         <Route path='/archive' element={<Archive/>}/>
-
+        <Route path="/about" element={<About/>} />
 
           <Route path="/create" element={<PrivateRoute element={<CreatePost />} />} />
           <Route path="/posts-manager" element={<PrivateRoute element={<PostsManager />} />} />

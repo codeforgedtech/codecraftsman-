@@ -48,12 +48,12 @@ const Archive = () => {
 
   return (
     <div className="archive">
-  
       {error && <div className="error">{error}</div>}
       {Object.keys(archiveData).length > 0 ? (
         Object.entries(archiveData).map(([year, months]) => (
           <div key={year} className="archive-year">
-            <h2>{year}</h2>
+            <div className="year-stamp">{year}</div>
+            
             {Object.entries(months).map(([month, posts]) => (
               <div key={month} className="archive-month">
                 <h3>{month}</h3>
@@ -64,7 +64,9 @@ const Archive = () => {
                         {formatDate(post.created_at)}
                       </div>
                       <div className="post-details">
-                        <img src={post.images} alt={post.title} className="thumbnail" />
+                        {post.images && post.images.length > 0 && (
+                          <img src={post.images[0]} alt={post.title} className="thumbnail" />
+                        )}
                         <div className="post-info">
                           <Link to={`/post/${post.id}`} className="post-title">{post.title}</Link>
                           <div className="categories">
@@ -93,5 +95,7 @@ const Archive = () => {
 };
 
 export default Archive;
+
+
 
 
