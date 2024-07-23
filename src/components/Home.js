@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { Link } from 'react-router-dom';
+import LatestPostsSlider from './LatestPostsSlider';
 import '../styles/Home.css';
 
 const categories = [
@@ -61,6 +62,7 @@ const Home = () => {
 
   return (
     <div className="container home">
+      <LatestPostsSlider posts={posts} />
       <div className="category-filter">
         <h4>Filter by Category:</h4>
         <select
@@ -123,3 +125,4 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
 };
 
 export default Home;
+
