@@ -1,72 +1,72 @@
 /* Container for the archive section */
 .archive {
     padding: 1.5rem;
-    background-color: #ffffff; /* White background for a clean look */
-    border: 1px solid #ddd; /* Lighter border color for a subtle look */
-    border-radius: 8px; /* Slightly larger border radius for a softer appearance */
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     margin: 2rem auto;
     max-width: 90%; /* Adjusted for better responsiveness */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for a lifted effect */
-    position: relative; /* Ensure relative positioning for absolute children */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 /* Heading style */
 .archive h1 {
-    font-size: 2rem; /* Slightly smaller font size for better visibility on small screens */
-    margin-bottom: 1rem; /* Adjusted margin for better spacing */
-    color: #222; /* Darker text color for better contrast */
+    font-size: 2.5rem; /* Larger font size for desktop */
+    margin-bottom: 1.5rem; /* Increased margin for spacing */
+    color: #222;
     text-align: center;
 }
 
 /* Error message style */
 .archive .error {
-    color: #c00; /* Darker red for better visibility */
-    background-color: #fdd; /* Lighter background for the error box */
+    color: #c00;
+    background-color: #fdd;
     border: 1px solid #c00;
-    padding: 1rem; /* Adjusted padding for consistency */
-    border-radius: 6px; /* Slightly larger border radius for a softer look */
-    margin-bottom: 1rem; /* Adjusted margin for better spacing */
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
     text-align: center;
 }
 
 /* Year heading style */
 .archive-year {
-    position: relative; /* Ensure the stamp is positioned relative to this container */
-    margin-bottom: 1rem;
+    position: relative;
+    margin-bottom: 2rem;
 }
 
 .archive-year h2 {
-    font-size: 1.6rem; /* Slightly smaller font size for better readability on small screens */
+    font-size: 2rem; /* Larger font size for desktop */
     color: #333;
-    margin-bottom: 1rem;
-    position: relative; /* Ensure relative positioning for the stamp */
+    margin-bottom: 1.5rem;
+    position: relative;
 }
 
 /* Year stamp style */
 .year-stamp {
     position: absolute;
-    top: -1rem; /* Adjust position for better alignment */
-    left: -1.5rem; /* Move to the left side */
-    transform: rotate(-15deg); /* Adjust the rotation angle as needed */
-    transform-origin: left top; /* Rotate from the top-left corner */
-    background-color: #f1f1f1; /* Light background color for the stamp */
+    top: -1.5rem;
+    left: -2rem;
+    transform: rotate(-15deg);
+    transform-origin: left top;
+    background-color: #f1f1f1;
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for a lifted effect */
-    z-index: 1; /* Ensure it's above other content */
-    font-size: 1.2rem; /* Adjust font size for better readability on small screens */
-    color: #333; /* Darker text color for better contrast */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    font-size: 1.4rem;
+    color: #333;
 }
 
 /* Month heading style */
 .archive-month {
-    margin-left: 1rem; /* Adjust margin for better spacing */
+    margin-left: 2rem;
 }
 
 .archive-month h3 {
-    font-size: 1.4rem; /* Adjusted font size for smaller screens */
-    color: #444; /* Slightly darker color for better readability */
-    margin-left: 30px; /* Adjusted margin for alignment */
+    font-size: 1.6rem; /* Larger font size for desktop */
+    color: #444;
+    margin-left: 30px;
 }
 
 /* List style for months */
@@ -79,41 +79,39 @@
 /* Post container style */
 .archive-post {
     display: flex;
-    flex-direction: column; /* Stack items vertically on smaller screens */
-    align-items: flex-start; /* Align items to the start */
-    padding: 0.8rem 0; /* Reduced padding for a cleaner look */
-    border-bottom: 1px solid #eee; /* Subtle divider between posts */
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
 }
 
 /* Date box style */
 .archive-post .date-box {
-    width: 50px; /* Slightly smaller for better readability on small screens */
-    height: 50px;
+    width: 60px; /* Larger for better visibility */
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ccc; /* Primary color for consistency */
+    background-color: #ccc;
     color: #000;
-    font-size: 1.4rem; /* Slightly smaller font size for better readability */
+    font-size: 1.6rem;
     font-weight: bold;
-    border-radius: 6px; /* Consistent border radius */
-    margin-bottom: 0.5rem; /* Increased margin for better spacing */
+    border-radius: 6px;
+    margin-right: 1rem;
 }
 
 /* Post details container style */
 .archive-post .post-details {
     display: flex;
-    flex-direction: column; /* Stack items vertically on smaller screens */
-    align-items: flex-start; /* Align items to the start */
+    align-items: center;
 }
 
 /* Thumbnail style */
 .archive-post .thumbnail {
-    width: 50px; /* Slightly smaller thumbnail for better responsiveness */
-    height: 50px;
+    width: 120px; /* Consistent size for better responsiveness */
+    height: 120px;
     border-radius: 6px;
     object-fit: cover;
-    margin-bottom: 0.5rem; /* Increased margin for better spacing */
+    margin-right: 1rem;
 }
 
 /* Post information container style */
@@ -124,15 +122,15 @@
 
 /* Post title style */
 .archive-post .post-title {
-    font-size: 1rem; /* Adjusted font size for better readability */
-    color: #007bff; /* Consistent link color */
+    font-size: 1.2rem;
+    color: #007bff;
     text-decoration: none;
-    transition: color 0.3s, font-weight 0.3s; /* Added transition for font weight */
+    transition: color 0.3s, font-weight 0.3s;
 }
 
 .archive-post .post-title:hover {
-    color: #0056b3; /* Darker shade of primary color on hover */
-    font-weight: bold; /* Bold on hover for emphasis */
+    color: #0056b3;
+    font-weight: bold;
 }
 
 /* Categories container style */
@@ -140,48 +138,64 @@
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    margin-top: 0.5rem; /* Added margin for spacing */
+    margin-top: 0.5rem;
 }
 
 /* Category style */
 .archive-post .category {
-    font-size: 0.8rem; /* Adjusted font size for better readability on smaller screens */
-    color: #555; /* Darker text color for readability */
-    background-color: #f7f7f7; /* Lighter background for categories */
+    font-size: 0.9rem;
+    color: #555;
+    background-color: #f7f7f7;
     padding: 3px 8px;
     border-radius: 4px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    /* Container adjustments for tablets and mobile */
+    /* Container adjustments for tablets */
     .archive {
-        max-width: 100%; /* Full width on smaller screens */
-        padding: 1rem; /* Adjusted padding */
+        max-width: 95%; /* Almost full width on tablets */
+        padding: 1rem;
     }
 
     .archive h1 {
-        font-size: 1.8rem; /* Slightly smaller font size */
+        font-size: 2rem; /* Adjust font size */
+    }
+
+    .archive-year h2 {
+        font-size: 1.8rem; /* Adjust font size */
     }
 
     .archive-month h3 {
-        font-size: 1.2rem; /* Smaller font size for month heading */
+        font-size: 1.4rem; /* Adjust font size */
         margin-left: 20px; /* Adjust margin */
     }
 
     .archive-post {
-        flex-direction: column; /* Stack items vertically */
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .archive-post .thumbnail {
-        width: 40px; /* Smaller thumbnail */
-        height: 40px;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 0.5rem;
     }
 
     .archive-post .date-box {
-        width: 40px; /* Smaller date box */
-        height: 40px;
-        font-size: 1.2rem; /* Smaller font size */
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .archive-post .post-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .archive-post .post-title {
+        font-size: 1rem;
     }
 }
 
@@ -192,24 +206,51 @@
     }
 
     .archive h1 {
-        font-size: 1.5rem; /* Even smaller font size */
+        font-size: 1.5rem;
+       
+    }
+
+    .archive-year h2 {
+        font-size: 1.4rem; /* Adjust font size */
+    
     }
 
     .archive-month h3 {
-        font-size: 1rem; /* Even smaller font size */
+        font-size: 1.2rem; /* Smaller font size */
         margin-left: 50px; /* Adjust margin */
     }
 
+    .archive-post {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .archive-post .thumbnail {
-        width:95%; /* Smaller thumbnail */
+        width: 90%; /* Smaller thumbnail for mobile */
         height: auto;
+        margin-bottom: 0.5rem;
     }
 
     .archive-post .date-box {
-        width: 95%; /* Smaller date box */
-        height: 30px;
+        width: 90%; /* Full width for mobile */
+        height: auto;
         font-size: 1rem; /* Smaller font size */
+        text-align: center; /* Center align text */
+    }
+
+    .archive-post .post-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .archive-post .post-title {
+        font-size: 0.9rem; /* Smaller font size */
+    }
+
+    .archive-post .categories {
+        margin-top: 0.5rem;
     }
 }
+
 
   
