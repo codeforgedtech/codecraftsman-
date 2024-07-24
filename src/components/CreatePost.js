@@ -4,17 +4,18 @@ import 'react-quill/dist/quill.snow.css';
 import { supabase } from '../supabaseClient';
 import '../styles/CreatePost.css';
 import Resizer from 'react-image-file-resizer';
+import Select from 'react-select';
 
 const categories = [
-  'Programming',
-  'Web Development',
-  'App Development',
-  'AI & Machine Learning',
-  'Data Science',
-  'Cybersecurity',
-  'Cloud Computing',
-  'Hardware',
-  'Networking'
+  { value: 'Programming', label: 'Programming' },
+  { value: 'Web Development', label: 'Web Development' },
+  { value: 'App Development', label: 'App Development' },
+  { value: 'AI & Machine Learning', label: 'AI & Machine Learning' },
+  { value: 'Data Science', label: 'Data Science' },
+  { value: 'Cybersecurity', label: 'Cybersecurity' },
+  { value: 'Cloud Computing', label: 'Cloud Computing' },
+  { value: 'Hardware', label: 'Hardware' },
+  { value: 'Networking', label: 'Networking' }
 ];
 
 const CreatePost = () => {
@@ -70,7 +71,7 @@ const CreatePost = () => {
 
       // Insert post into Supabase database with image URLs and selected categories
       const { data: postData, error: insertError } = await supabase.from('posts').insert([
-        { title, content, images: imageUrls, categories: selectedCategories },
+        { title, content, images: imageUrls, categories: selectedCategories.map(cat => cat.value) },
       ]);
 
       if (insertError) {
@@ -125,15 +126,8 @@ const CreatePost = () => {
       );
     });
 
-  const handleCategoryChange = (event) => {
-    const { value, checked } = event.target;
-    setSelectedCategories((prevCategories) => {
-      if (checked) {
-        return [...prevCategories, value];
-      } else {
-        return prevCategories.filter(category => category !== value);
-      }
-    });
+  const handleCategoryChange = (selectedOptions) => {
+    setSelectedCategories(selectedOptions || []);
   };
 
   return (
@@ -156,17 +150,13 @@ const CreatePost = () => {
       )}
       <div className="category-selection">
         <h4>Select Categories:</h4>
-        {categories.map((category) => (
-          <label key={category}>
-            <input
-              type="checkbox"
-              value={category}
-              checked={selectedCategories.includes(category)}
-              onChange={handleCategoryChange}
-            />
-            {category}
-          </label>
-        ))}
+        <Select
+          isMulti
+          options={categories}
+          value={selectedCategories}
+          onChange={handleCategoryChange}
+          placeholder="Select categories..."
+        />
       </div>
       {error && <div className="error">{error}</div>}
       <button onClick={handleCreatePost}>Create Post</button>
@@ -175,6 +165,7 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+
 
 
 

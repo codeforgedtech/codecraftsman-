@@ -6,8 +6,9 @@
   margin: 2rem auto;
   max-width: 90%; /* Max width for better responsiveness */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: auto; /* Adjust height to content */
-  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  height: 100vh; /* Adjust height to content */
+  box-sizing: border-box; 
+
 }
 
 .create-post input[type="text"] {
@@ -24,12 +25,23 @@
   width: 100%; /* Full width on mobile */
   box-sizing: border-box; /* Include padding and border in width */
 }
+.category-selection {
+  margin-top: 1rem;
+  width: 100%;
+}
 
+.react-select__control {
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 0.5rem;
+}
 .create-post button {
   padding: 0.5rem 1rem;
   background-color: #333;
   color: #fff;
   border: none;
+  margin-top: 10px;
   border-radius: 5px;
   cursor: pointer;
   width: 100%; /* Full width on mobile */

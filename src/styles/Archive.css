@@ -56,6 +56,7 @@
     z-index: 1;
     font-size: 1.4rem;
     color: #333;
+    font-weight: 600;
 }
 
 /* Month heading style */
@@ -123,32 +124,61 @@
 /* Post title style */
 .archive-post .post-title {
     font-size: 1.2rem;
-    color: #007bff;
+    color: #333;
     text-decoration: none;
-    transition: color 0.3s, font-weight 0.3s;
+
 }
 
 .archive-post .post-title:hover {
-    color: #0056b3;
+    color: #ccc;
     font-weight: bold;
 }
 
 /* Categories container style */
-.archive-post .categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-top: 0.5rem;
-}
-
-/* Category style */
-.archive-post .category {
-    font-size: 0.9rem;
-    color: #555;
-    background-color: #f7f7f7;
-    padding: 3px 8px;
-    border-radius: 4px;
-}
+.categories {
+    margin-top: 2rem;
+    width: 100%; /* Anpassa till full bredd */
+    text-align: center;
+    display: flex; /* Använd Flexbox */
+    flex-wrap: wrap; /* Tillåter att element går till nästa rad vid behov */
+    justify-content: center; /* Centerar element horisontellt */
+  }
+  .category-link{
+    text-decoration: none;
+    color: #333;
+  }
+  .categories h4 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 1rem;
+    width: 100%; /* Ser till att rubriken är på egen rad */
+  }
+  
+  .categories ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Använd Flexbox för listan */
+    flex-wrap: wrap; /* Tillåter listobjekt att gå till nästa rad */
+    gap: 0.5rem; /* Mellanrum mellan listobjekt */
+    justify-content: center; /* Centerar listobjekt horisontellt */
+  }
+  
+  .categories ul li {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.5rem 1rem; /* Ökat padding för bättre utseende */
+    color: #333;
+   
+    font-size: 1rem;
+    cursor: pointer; /* Visar att listobjekten är klickbara */
+    transition: background-color 0.3s ease; /* För smidig hover-effekt */
+  }
+  
+  .categories ul li:hover {
+    background-color: #e0e0e0; /* Ljusare bakgrund på hover */
+  }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

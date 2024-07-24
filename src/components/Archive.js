@@ -12,8 +12,8 @@ const Archive = () => {
       try {
         const { data, error } = await supabase
           .from('posts')
-          .select('id, title, created_at, categories, images') // Include categories and thumbnail_url
-          .order('created_at', { ascending: false }); // Fetch posts in descending order by creation date
+          .select('id, title, created_at, categories, images')
+          .order('created_at', { ascending: false });
 
         if (error) {
           throw error;
@@ -43,7 +43,7 @@ const Archive = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.getDate(); // Returns the day of the month
+    return date.getDate();
   };
 
   return (
@@ -70,14 +70,21 @@ const Archive = () => {
                         <div className="post-info">
                           <Link to={`/post/${post.id}`} className="post-title">{post.title}</Link>
                           <div className="categories">
-                            {Array.isArray(post.categories) ? (
-                              post.categories.map((category, index) => (
-                                <span key={index} className="category">{category}</span>
-                              ))
-                            ) : (
-                              <span className="category">{post.categories}</span>
-                            )}
-                          </div>
+            <h4>Categories:</h4>
+            <ul>
+              {post.categories && post.categories.length > 0 ? (
+                post.categories.map((category, index) => (
+                  <li key={index}>
+                    <Link to={`/category/${category}`} className="category-link">
+                      {category}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li>No categories</li>
+              )}
+            </ul>
+          </div>
                         </div>
                       </div>
                     </li>
@@ -95,6 +102,8 @@ const Archive = () => {
 };
 
 export default Archive;
+
+
 
 
 
