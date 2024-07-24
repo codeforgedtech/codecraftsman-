@@ -15,6 +15,7 @@
   border-radius: 5px;
   background-color: #4285f4;
   color: white;
+  margin: 10px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -29,7 +30,33 @@
 }
 
 .google-signin-button img.google-logo {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+.gitlab-signin-button {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  border: none;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: #fc6d26;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.gitlab-signin-button:hover {
+  background-color: #e55a1b;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.gitlab-logo {
+  height: 25px;
   margin-right: 10px;
 }

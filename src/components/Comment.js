@@ -98,7 +98,7 @@ const Comment = ({ postId }) => {
       setUser(null);
 
       // Force a complete sign-out to ensure Google account selection upon next login
-      window.location.href = 'https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/';
+      window.location.href = 'https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://www.codecraftsman.se';
     } catch (error) {
       console.error('Error signing out:', error.message);
     }
