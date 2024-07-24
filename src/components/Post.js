@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { supabase } from '../supabaseClient';
 import Comment from './Comment';
 import '../styles/Post.css';
 
 const Post = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [post, setPost] = useState(null);
 
   useEffect(() => {
@@ -13,19 +14,29 @@ const Post = () => {
       let { data: post, error } = await supabase
         .from('posts')
         .select('*')
-        .eq('id', id)
+        .eq('slug', slug)
         .single();
       if (error) console.log('Error fetching post:', error);
       else setPost(post);
     };
 
     fetchPost();
-  }, [id]);
+  }, [slug]);
 
   return (
     <div className="container post">
       {post && (
         <>
+          <Helmet>
+            <title>{post.title} | CodeCraftsMan</title>
+            <meta name="description" content={post.excerpt || 'Read this post to find out more!'} />
+            <meta property="og:title" content={post.title} />
+            <meta property="og:description" content={post.excerpt || 'Read this post to find out more!'} />
+            <meta property="og:image" content={post.images && post.images.length > 0 ? post.images[0] : '/default-image.jpg'} />
+            <meta property="og:url" content={`https://codecraftsman.se/post/${post.slug}`} />
+            <meta property="og:type" content={post.title} />
+            
+          </Helmet>
           <h1>{post.title}</h1>
           <div className="content">
             {post.images && post.images.length > 0 && (

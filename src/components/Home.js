@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { Link } from 'react-router-dom';
 import LatestPostsSlider from './LatestPostsSlider';
+import { Helmet } from 'react-helmet';
 import '../styles/Home.css';
 
 const categories = [
@@ -62,6 +63,11 @@ const Home = () => {
 
   return (
     <div className="container home">
+      <Helmet>
+        <title>Latest Tech Blog Posts</title>
+        <meta name="description" content="Read the latest blog posts on technology, programming, web development, and more. Stay updated with our latest articles." />
+        <meta name="keywords" content="technology, programming, web development, tech blog, latest articles" />
+      </Helmet>
       <LatestPostsSlider posts={posts} />
       <div className="category-filter">
         <h4>Filter by Category:</h4>
@@ -81,7 +87,7 @@ const Home = () => {
       {currentPosts.length === 0 && <p>No posts found for this category.</p>}
 
       {currentPosts.map(post => (
-        <Link to={`/post/${post.id}`} className="post-link" key={post.id}>
+        <Link to={`/post/${post.slug}`} className="post-link" key={post.slug}>
           {post.images && post.images.length > 0 && (
             <img src={post.images[0]} alt="Post thumbnail" />
           )}
@@ -125,4 +131,5 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
 };
 
 export default Home;
+
 

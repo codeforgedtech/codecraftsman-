@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import '../styles/Archive.css';
 
 const Archive = () => {
@@ -48,6 +49,11 @@ const Archive = () => {
 
   return (
     <div className="archive">
+      <Helmet>
+        <title>Archive | CodeCraftsMan</title>
+        <meta name="description" content="Browse through our archive of blog posts on technology, programming, and more. Discover older posts that might interest you." />
+        <meta name="keywords" content="tech blog archive, programming, technology, older posts" />
+      </Helmet>
       {error && <div className="error">{error}</div>}
       {Object.keys(archiveData).length > 0 ? (
         Object.entries(archiveData).map(([year, months]) => (
@@ -70,7 +76,7 @@ const Archive = () => {
                         <div className="post-info">
                           <Link to={`/post/${post.id}`} className="post-title">{post.title}</Link>
                           <div className="categories">
-            <h4>Categories:</h4>
+            <h4>Categories</h4>
             <ul>
               {post.categories && post.categories.length > 0 ? (
                 post.categories.map((category, index) => (

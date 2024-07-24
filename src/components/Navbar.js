@@ -85,7 +85,7 @@ const HamburgerButton = styled.button`
   align-items: center;
   height: 45px;
   width: 45px;
-  background-color: #ccc;
+  background-color: #333;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -93,6 +93,7 @@ const HamburgerButton = styled.button`
   top: 25px;
   right: 10px;
   z-index: 20;
+ 
 
   span {
     display: block;

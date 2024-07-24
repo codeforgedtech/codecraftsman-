@@ -1,9 +1,15 @@
 import React from 'react';
 import '../styles/About.css'; // Import your CSS file
 import profil from "../images/profil.jpg"
+import { Helmet } from 'react-helmet';
 const About = () => {
   return (
     <div className="about-container">
+       <Helmet>
+        <title>About Me | CodeCraftsMan</title>
+        <meta name="description" content="Learn more about me . Discover my mission, vision, and what drives me to bring you the best in technology news and insights." />
+        <meta name="keywords" content="about me, tech blog , technology news, my mission" />
+      </Helmet>
       <header className="about-header">
         <div className="about-stamp">
         About me

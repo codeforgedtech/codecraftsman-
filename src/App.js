@@ -22,7 +22,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/post/:id" element={<Post />} />
+          <Route path="/post/:slug" element={<Post />} />
           <Route path="/category/:category" element={<CategoryPosts />} />          
           <Route path="/login" element={<Login />} />
         <Route path='/archive' element={<Archive/>}/>

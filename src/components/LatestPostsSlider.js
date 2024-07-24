@@ -36,7 +36,7 @@ const LatestPostsSlider = ({ posts }) => {
       <div className="slide-stamp">Latest Posts</div><Slider {...settings}>
         {posts.slice(0, 3).map(post => (
           <div key={post.id} className="slider-item">
-            <Link to={`/post/${post.id}`} className="slider-link">
+            <Link to={`/post/${post.slug}`} className="slider-link">
               {post.images && post.images.length > 0 && (
                 <img src={post.images[0]} alt="Post thumbnail" className="slider-image" />
               )}

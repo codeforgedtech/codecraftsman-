@@ -6,6 +6,14 @@ import '../styles/CreatePost.css';
 import Resizer from 'react-image-file-resizer';
 import Select from 'react-select';
 
+// Hjälpfunktion för att generera slug
+const generateSlug = (title) => {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-') // Ersätt icke-alfanumeriska tecken med -
+    .replace(/^-+|-+$/g, ''); // Ta bort ledande och avslutande -
+};
+
 const categories = [
   { value: 'Programming', label: 'Programming' },
   { value: 'Web Development', label: 'Web Development' },
@@ -39,6 +47,9 @@ const CreatePost = () => {
     try {
       const imageUrls = [];
 
+      // Generera slug
+      const slug = generateSlug(title);
+
       // Loop through uploaded images
       for (const image of images) {
         const uniqueFileName = `${Date.now()}-${image.file.name}`;
@@ -69,9 +80,15 @@ const CreatePost = () => {
         imageUrls.push(publicURL);
       }
 
-      // Insert post into Supabase database with image URLs and selected categories
+      // Insert post into Supabase database with image URLs, categories, and slug
       const { data: postData, error: insertError } = await supabase.from('posts').insert([
-        { title, content, images: imageUrls, categories: selectedCategories.map(cat => cat.value) },
+        { 
+          title, 
+          slug, 
+          content, 
+          images: imageUrls, 
+          categories: selectedCategories.map(cat => cat.value) 
+        },
       ]);
 
       if (insertError) {
@@ -165,6 +182,7 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+
 
 
 

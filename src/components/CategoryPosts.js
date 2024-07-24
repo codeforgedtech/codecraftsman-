@@ -45,7 +45,7 @@ const CategoryPosts = () => {
       <div className="posts-list">
         {currentPosts.length > 0 ? (
           currentPosts.map((post) => (
-            <Link key={post.id} to={`/post/${post.id}`} className="post-link">
+            <Link key={post.slug} to={`/post/${post.slug}`} className="post-link">
               {post.images && post.images.length > 0 && (
                 <img src={post.images[0]} alt="Post thumbnail" className="post-thumbnail" />
               )}
