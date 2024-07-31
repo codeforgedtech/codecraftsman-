@@ -31,18 +31,18 @@ const LatestPostsSlider = ({ posts }) => {
   };
 
   return (
-  <div className="slider-container">
-
-      <div className="slide-stamp">Latest Posts</div><Slider {...settings}>
+    <div className="slider-container">
+      <div className="slide-stamp">Latest Posts</div>
+      <Slider {...settings}>
         {posts.slice(0, 3).map(post => (
           <div key={post.id} className="slider-item">
             <Link to={`/post/${post.slug}`} className="slider-link">
               {post.images && post.images.length > 0 && (
                 <img src={post.images[0]} alt="Post thumbnail" className="slider-image" />
               )}
-              <div className="slider-info">
+            
+              <div className="slider-overlay">
                 <h3>{post.title}</h3>
-                <p dangerouslySetInnerHTML={{ __html: post.content.substring(0, 100) }} />
               </div>
             </Link>
           </div>

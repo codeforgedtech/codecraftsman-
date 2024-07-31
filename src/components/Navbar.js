@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { supabase } from '../supabaseClient';
 import logo from '../images/logotype.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faSignInAlt, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Animation for sliding the menu in and out
 const slideIn = keyframes`
@@ -145,22 +145,7 @@ const MenuItems = styled.div`
   }
 `;
 
-const IconButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: black;
-  transition: color 0.3s ease;
 
-  &:hover {
-    color: #5bc0de;
-  }
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
@@ -187,11 +172,10 @@ const Navbar = () => {
   const signOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
-      if (error) {
-        throw error;
-      }
-      setUser(null);
-      navigate('/'); // Redirect to home after sign out
+      if (error) throw error;
+  
+      // Force complete sign-out from Google
+      window.location.href = 'https://accounts.google.com/Logout?continue=https://www.google.com';
     } catch (error) {
       console.error('Error signing out:', error.message);
     }

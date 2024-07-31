@@ -5,6 +5,7 @@ import { supabase } from '../supabaseClient';
 import '../styles/CreatePost.css';
 import Resizer from 'react-image-file-resizer';
 import Select from 'react-select';
+import Modal from 'react-modal';
 
 // Hjälpfunktion för att generera slug
 const generateSlug = (title) => {
@@ -23,7 +24,19 @@ const categories = [
   { value: 'Cybersecurity', label: 'Cybersecurity' },
   { value: 'Cloud Computing', label: 'Cloud Computing' },
   { value: 'Hardware', label: 'Hardware' },
-  { value: 'Networking', label: 'Networking' }
+  { value: 'Networking', label: 'Networking' },
+  { value: 'Database Management', label: 'Database Management' },
+  { value: 'Software Engineering', label: 'Software Engineering' },
+  { value: 'DevOps', label: 'DevOps' },
+  { value: 'UX/UI Design', label: 'UX/UI Design' },
+  { value: 'Game Development', label: 'Game Development' },
+  { value: 'Embedded Systems', label: 'Embedded Systems' },
+  { value: 'Virtual Reality (VR) / Augmented Reality (AR)', label: 'Virtual Reality (VR) / Augmented Reality (AR)' },
+  { value: 'Ethical Hacking', label: 'Ethical Hacking' },
+  { value: 'Automation', label: 'Automation' },
+  { value: 'Blockchain Technology', label: 'Blockchain Technology' },
+  { value: 'Software Testing', label: 'Software Testing' },
+  { value: 'Quantum Computing', label: 'Quantum Computing' }
 ];
 
 const CreatePost = () => {
@@ -32,6 +45,7 @@ const CreatePost = () => {
   const [images, setImages] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCreatePost = async () => {
     if (!title || !content) {
@@ -101,6 +115,7 @@ const CreatePost = () => {
       setImages([]);
       setSelectedCategories([]);
       setError(null); // Clear error state after successful post creation
+      setIsModalOpen(true); // Open the modal after successful post creation
     } catch (error) {
       console.error('Error creating post:', error.message);
       setError(`Error creating post: ${error.message}`);
@@ -147,6 +162,10 @@ const CreatePost = () => {
     setSelectedCategories(selectedOptions || []);
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="container create-post">
       <input
@@ -177,11 +196,23 @@ const CreatePost = () => {
       </div>
       {error && <div className="error">{error}</div>}
       <button onClick={handleCreatePost}>Create Post</button>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Post Created"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
+        <h2>Post Created Successfully!</h2>
+        <button onClick={closeModal}>Close</button>
+      </Modal>
     </div>
   );
 };
 
 export default CreatePost;
+
 
 
 

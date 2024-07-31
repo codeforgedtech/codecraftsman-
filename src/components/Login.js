@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
-import googleLogo from '../images/google-logo.png';
-import gitlabLogo from '../images/gitlab-logo.png';
+import googleLogo from '../images/google-logo.png'; // Ladda in Google-logotypen
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,11 +10,6 @@ const Login = () => {
   const signInWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
     if (error) console.error('Error logging in with Google:', error.message);
-  };
-
-  const signInWithGitLab = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({ provider: 'gitlab' });
-    if (error) console.error('Error logging in with GitLab:', error.message);
   };
 
   useEffect(() => {
@@ -34,7 +28,7 @@ const Login = () => {
           }
 
           if (user.isAdmin) {
-            navigate('/home'); // Omdirigera administratören till admin-sidan
+            navigate('/create-post'); // Omdirigera administratören till admin-sidan
           } else {
             navigate('/home'); // Omdirigera vanliga användare till home-sidan
           }
@@ -54,10 +48,6 @@ const Login = () => {
       <button onClick={signInWithGoogle} className="google-signin-button">
         <img src={googleLogo} alt="Google logo" className="google-logo" />
         Sign in with Google
-      </button>
-      <button onClick={signInWithGitLab} className="gitlab-signin-button">
-        <img src={gitlabLogo} alt="GitLab logo" className="gitlab-logo" />
-        Sign in with GitLab
       </button>
     </div>
   );

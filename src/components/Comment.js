@@ -187,102 +187,129 @@ const Comment = ({ postId }) => {
     }
   };
 
+  const [totalComments, setTotalComments] = useState(0);
+
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const { data, error } = await supabase
           .from('comments')
           .select(`
-            *, 
+            id,
+            content,
+            user_name,
+            user_email,
             replies (
-              *
+              id,
+              content,
+              user_name,
+              user_email
             )
           `)
-          .eq('post_id', postId);
-
+          .eq('post_id', postId)
+          .order('created_at', { ascending: true });
+  
         if (error) {
           throw error;
         }
-
-        setComments(data || []);
+  
+        // Calculate the number of replies for each comment
+        const commentsWithReplyCount = data.map(comment => ({
+          ...comment,
+          replyCount: comment.replies ? comment.replies.length : 0
+        }));
+  
+        setComments(commentsWithReplyCount || []);
+  
+        // Calculate total comments and replies
+        const total = commentsWithReplyCount.reduce((acc, comment) => acc + 1 + comment.replyCount, 0);
+        setTotalComments(total);
       } catch (error) {
         console.error('Error fetching comments:', error.message);
       }
     };
-
+  
     fetchComments();
   }, [postId]);
+  
 
   return (
     <div className="comment-section">
-      <Modal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} message={modalMessage} />
-      {user ? (
-        <>
-          <textarea
-            placeholder="Add a comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <div className="button-container">
-            <button onClick={handleCommentSubmit}>Submit</button>
-            <button onClick={signOut}>Log Out</button>
-          </div>
-
-          {replyToCommentId && (
-            <>
-              <textarea
-                placeholder="Add a reply"
-                value={reply}
-                onChange={(e) => setReply(e.target.value)}
-              />
-              <div className="button-container">
-                <button onClick={handleReplySubmit}>Submit Reply</button>
-                <button onClick={() => setReplyToCommentId(null)}>Cancel</button>
-              </div>
-            </>
-          )}
-        </>
-      ) : (
-        <div>
-          <p>Please log in to comment.</p>
-          <button className="google-login-button" onClick={signInWithGoogle}>
-            <img src={googleLogo} alt="Google logo" className="google-logo" />
-            Sign in with Google
-          </button>
-        </div>
-      )}
-      <div>
-        {comments.length > 0 ? (
-          comments.map((c, index) => (
-            c && c.content ? (
-              <div className="comment" key={index}>
-                <p><strong>{c.user_name || 'Unknown User'}</strong> ({c.user_email || 'No email'})</p>
-                <p>{c.content}</p>
-                <button onClick={() => setReplyToCommentId(c.id)}>Reply</button>
-                {c.replies && c.replies.length > 0 && (
-                  <div className="replies">
-                    {c.replies.map((r, rIndex) => (
-                      r && r.content ? (
-                        <div className="reply" key={rIndex}>
-                          <p><strong>{r.user_name || 'Unknown User'}</strong> ({r.user_email || 'No email'})</p>
-                          <p>{r.content}</p>
-                        </div>
-                      ) : null
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : null
-          ))
-        ) : (
-          <p>No comments yet.</p>
-        )}
-      </div>
+    <Modal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} message={modalMessage} />
+    <div className="comment-header">
+      <h3>Comments <span className="comment-count">{totalComments}</span></h3>
     </div>
+    {user ? (
+      <>
+        <textarea
+          placeholder="Add a comment"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+        <div className="button-container">
+          <button onClick={handleCommentSubmit}>Submit</button>
+          <button onClick={signOut}>Log Out</button>
+        </div>
+  
+        {replyToCommentId && (
+          <>
+            <textarea
+              placeholder="Add a reply"
+              value={reply}
+              onChange={(e) => setReply(e.target.value)}
+            />
+            <div className="button-container">
+              <button onClick={handleReplySubmit}>Submit Reply</button>
+              <button onClick={() => setReplyToCommentId(null)}>Cancel</button>
+            </div>
+          </>
+        )}
+      </>
+    ) : (
+      <div>
+        <p>Please log in to comment.</p>
+        <button className="google-login-button" onClick={signInWithGoogle}>
+          <img src={googleLogo} alt="Google logo" className="google-logo" />
+          Sign in with Google
+        </button>
+      </div>
+    )}
+    <div>
+      {comments.length > 0 ? (
+        comments.map((c) => (
+          c && c.content ? (
+            <div className="comment" key={c.id}>
+              <p><strong>{c.user_name || 'Unknown User'}</strong> ({c.user_email || 'No email'})</p>
+              <p>{c.content}</p>
+              <p className="reply-count">Replies: {c.replyCount}</p>
+              {user && (
+                <button onClick={() => setReplyToCommentId(c.id)}>Reply</button>
+              )}
+              {c.replies && c.replies.length > 0 && (
+                <div className="replies">
+                  {c.replies.map((r) => (
+                    r && r.content ? (
+                      <div className="reply" key={r.id}>
+                        <p><strong>{r.user_name || 'Unknown User'}</strong> ({r.user_email || 'No email'})</p>
+                        <p>{r.content}</p>
+                      </div>
+                    ) : null
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : null
+        ))
+      ) : (
+        <p>No comments yet.</p>
+      )}
+    </div>
+  </div>
   );
 };
 
 export default Comment;
+
 
 
 

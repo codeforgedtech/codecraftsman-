@@ -15,9 +15,9 @@
 }
 
 .post .content {
-  margin: 1rem 0;
-  line-height: 1.8; /* Ökad radavstånd för bättre läsbarhet */
-  padding: 0 0.5rem; /* Extra utrymme runt texten */
+  padding: 0.5rem 1rem; /* Öka padding för bättre synlighet av siffror */
+  margin: 0; /* Ta bort marginaler för att optimera utrymmet */
+  line-height: 1.6; /* Extra utrymme runt texten */
 }
 
 .comment-section {
@@ -133,13 +133,37 @@
 .categories ul li:hover {
   background-color: #e0e0e0; /* Ljusare bakgrund på hover */
 }
+.similar-posts {
+  margin-top: 20px;
+}
 
+.similar-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 15px;
+}
+
+.similar-post-item {
+  text-decoration: none;
+  color: inherit;
+}
+
+.similar-post-thumbnail {
+  width: 100%;
+  height: auto;
+}
+
+.similar-post-title {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1em;
+}
 /* För mindre skärmar, ta bort float och gör att bilderna blir fullbredd */
 
   @media (max-width: 768px) {
     .post {
       padding: 1rem; /* Justera padding för bättre användning av utrymme */
-      margin: 0 auto; /* Centrerar div:en horisontellt */
+      margin: 0 auto ; /* Centrerar div:en horisontellt */
       max-width: 100%; /* Full bredd för att utnyttja hela skärmytan */
     }
   
@@ -148,8 +172,8 @@
     }
   
     .post .content {
-      padding: 0; /* Ta bort extra padding för att använda hela bredden */
-      margin: 0; /* Ta bort marginaler för att optimera utrymmet */
+      padding: 1rem; /* Ta bort extra padding för att använda hela bredden */
+      margin: 0 2px 2px 2px; /* Ta bort marginaler för att optimera utrymmet */
       line-height: 1.6; /* Justera radavståndet för läsbarhet */
     }
   
@@ -161,5 +185,30 @@
     .comment-section button {
       padding: 0.5rem 1rem; /* Justera padding för knappar */
       font-size: 0.9rem; /* Anpassa textstorlek för knappar */
+    }
+    .similar-posts {
+      margin-top: 20px;
+    }
+    
+    .similar-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    
+    .similar-post-item {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .similar-post-thumbnail {
+      width: 100%;
+      height: auto;
+    }
+    
+    .similar-post-title {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 1em;
     }
   }

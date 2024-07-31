@@ -6,7 +6,7 @@
   margin: 2rem auto;
   max-width: 90%; /* Max width for better responsiveness */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 100vh; /* Adjust height to content */
+  
   box-sizing: border-box; 
 
 }
