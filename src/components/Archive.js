@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import Select from 'react-select'; // Import React Select
 import '../styles/Archive.css';
 
 const Archive = () => {
   const [archiveData, setArchiveData] = useState({});
   const [error, setError] = useState(null);
+  const [selectedMonth, setSelectedMonth] = useState(null); // State for selected month
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -47,6 +49,30 @@ const Archive = () => {
     return date.getDate();
   };
 
+  const monthOptions = [
+    { value: 'january', label: 'january' },
+    { value: 'february', label: 'february' },
+    { value: 'march', label: 'march' },
+    { value: 'april', label: 'april' },
+    { value: 'may', label: 'may' },
+    { value: 'june', label: 'june' },
+    { value: 'juli', label: 'juli' },
+    { value: 'augusti', label: 'augusti' },
+    { value: 'september', label: 'september' },
+    { value: 'october', label: 'october' },
+    { value: 'november', label: 'november' },
+    { value: 'december', label: 'december' }
+  ];
+
+  const filteredArchiveData = selectedMonth
+    ? Object.fromEntries(
+        Object.entries(archiveData).map(([year, months]) => [
+          year,
+          { [selectedMonth.value]: months[selectedMonth.value] || [] }
+        ])
+      )
+    : archiveData;
+
   return (
     <div className="archive">
       <Helmet>
@@ -55,11 +81,19 @@ const Archive = () => {
         <meta name="keywords" content="tech blog archive, programming, technology, older posts" />
       </Helmet>
       {error && <div className="error">{error}</div>}
-      {Object.keys(archiveData).length > 0 ? (
-        Object.entries(archiveData).map(([year, months]) => (
+      <div className="filter">
+        <Select
+          value={selectedMonth}
+          onChange={setSelectedMonth}
+          options={monthOptions}
+          placeholder="Select month"
+          isClearable
+        />
+      </div>
+      {Object.keys(filteredArchiveData).length > 0 ? (
+        Object.entries(filteredArchiveData).map(([year, months]) => (
           <div key={year} className="archive-year">
             <div className="year-stamp">{year}</div>
-            
             {Object.entries(months).map(([month, posts]) => (
               <div key={month} className="archive-month">
                 <h3>{month}</h3>
@@ -76,21 +110,21 @@ const Archive = () => {
                         <div className="post-info">
                           <Link to={`/post/${post.id}`} className="post-title">{post.title}</Link>
                           <div className="categories">
-            <h4>Categories</h4>
-            <ul>
-              {post.categories && post.categories.length > 0 ? (
-                post.categories.map((category, index) => (
-                  <li key={index}>
-                    <Link to={`/category/${category}`} className="category-link">
-                      {category}
-                    </Link>
-                  </li>
-                ))
-              ) : (
-                <li>No categories</li>
-              )}
-            </ul>
-          </div>
+                            <h4>Categories</h4>
+                            <ul>
+                              {post.categories && post.categories.length > 0 ? (
+                                post.categories.map((category, index) => (
+                                  <li key={index}>
+                                    <Link to={`/category/${category}`} className="category-link">
+                                      {category}
+                                    </Link>
+                                  </li>
+                                ))
+                              ) : (
+                                <li>No categories</li>
+                              )}
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -108,6 +142,7 @@ const Archive = () => {
 };
 
 export default Archive;
+
 
 
 

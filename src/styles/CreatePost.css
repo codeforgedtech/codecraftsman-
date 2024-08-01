@@ -64,7 +64,61 @@
 .category-selection input[type="checkbox"] {
   margin-right: 0.5rem;
 }
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+/* Modal container */
+.modal {
+  background: #fff; /* White background */
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Modal header */
+.modal h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333; /* Dark grey text */
+  text-align: center;
+}
+
+/* Close button style */
+.modal button {
+  background-color: #007bff; /* Blue background */
+  border: none;
+  color: #fff; /* White text */
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin: 1rem auto 0;
+}
+
+/* Close button hover effect */
+.modal button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Optional: styling for modal content to add padding or text alignment */
+.modal-content {
+  margin-bottom: 1rem;
+  text-align: center;
+}
 /* Media Queries for better responsiveness on larger screens */
 @media (min-width: 768px) {
   .create-post {
