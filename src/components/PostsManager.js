@@ -246,9 +246,11 @@ const PostsManager = () => {
                     <span key={index} className="category">{category}</span>
                   ))}
                 </div>
+                <div className="image-preview">
                 {post.images && post.images.length > 0 && (
-                  <img src={`https://iwlqqtafktfqeyapqxgz.supabase.co/storage/v1/object/public/images/${post.images[0]}`} alt="Post" />
+                  <img src={`${post.images[0]}`} alt="Post" />
                 )}
+                </div>
                 <button className="edit" onClick={() => handleEditClick(post)}>Edit</button>
                 <button className="delete" onClick={() => handleDeleteClick(post.id)}>Delete</button>
               </div>

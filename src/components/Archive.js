@@ -50,18 +50,18 @@ const Archive = () => {
   };
 
   const monthOptions = [
-    { value: 'january', label: 'january' },
-    { value: 'february', label: 'february' },
-    { value: 'march', label: 'march' },
-    { value: 'april', label: 'april' },
-    { value: 'may', label: 'may' },
-    { value: 'june', label: 'june' },
-    { value: 'juli', label: 'juli' },
-    { value: 'augusti', label: 'augusti' },
-    { value: 'september', label: 'september' },
-    { value: 'october', label: 'october' },
-    { value: 'november', label: 'november' },
-    { value: 'december', label: 'december' }
+    { value: 'january', label: 'January' },
+    { value: 'february', label: 'February' },
+    { value: 'march', label: 'March' },
+    { value: 'april', label: 'April' },
+    { value: 'may', label: 'May' },
+    { value: 'june', label: 'June' },
+    { value: 'july', label: 'July' },
+    { value: 'august', label: 'August' },
+    { value: 'september', label: 'September' },
+    { value: 'october', label: 'October' },
+    { value: 'november', label: 'November' },
+    { value: 'december', label: 'December' }
   ];
 
   const filteredArchiveData = selectedMonth
@@ -88,6 +88,7 @@ const Archive = () => {
           options={monthOptions}
           placeholder="Select month"
           isClearable
+          classNamePrefix="react-select"
         />
       </div>
       {Object.keys(filteredArchiveData).length > 0 ? (

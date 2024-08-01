@@ -74,6 +74,7 @@
     font-size: 1.6rem; /* Larger font size for desktop */
     color: #444;
     margin-left: 30px;
+    text-transform: capitalize;
 }
 
 /* List style for months */
@@ -147,7 +148,7 @@
     text-align: center;
     display: flex; /* Använd Flexbox */
     flex-wrap: wrap; /* Tillåter att element går till nästa rad vid behov */
-    justify-content: center; /* Centerar element horisontellt */
+    justify-content: flex-start;/* Centerar element horisontellt */
   }
   .category-link{
     text-decoration: none;
