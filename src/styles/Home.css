@@ -157,10 +157,10 @@ h1 {
     margin-top: 10px; /* Mellanrum mellan kategoriväljaren och sökrutan på mobil */
   }
   .category-filter{
-    width: 310px;
+    max-width: 310px;
   }
   .search-filter input {
-    width: 310px; /* Full bredd på mobil */
+    width: 290px; /* Full bredd på mobil */
   }
 
   /* Justera post-länkens layout på mindre skärmar */

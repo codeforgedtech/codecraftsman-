@@ -42,7 +42,7 @@ const Post = () => {
           .contains('categories', post.categories)
           .neq('id', post.id)
           .limit(4);
-  
+
         if (error) {
           console.log('Error fetching similar posts:', error.message);
         } else {
@@ -51,8 +51,14 @@ const Post = () => {
         setLoadingSimilar(false);
       }
     };
-  
+
     fetchSimilarPosts();
+  }, [post]);
+
+  useEffect(() => {
+    if (post) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }, [post]);
 
   if (loading) {
@@ -131,14 +137,15 @@ const Post = () => {
         </>
       )}
       <div className="comment-section">
-            <Comment postId={post.id} />
-          </div>
+        <Comment postId={post.id} />
+      </div>
     </div>
-    
   );
 };
 
 export default Post;
+
+
 
 
 

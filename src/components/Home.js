@@ -5,15 +5,7 @@ import LatestPostsSlider from './LatestPostsSlider';
 import { Helmet } from 'react-helmet';
 import Loader from './Loader';
 import '../styles/Home.css';
-
-const categories = [
-  'Programming', 'Web Development', 'App Development', 'AI & Machine Learning', 
-  'Data Science', 'Cybersecurity', 'Cloud Computing', 'Hardware', 'Networking', 
-  'Database Management', 'Software Engineering', 'DevOps', 'UX/UI Design', 
-  'Game Development', 'Embedded Systems', 'Virtual Reality (VR) / Augmented Reality (AR)', 
-  'Ethical Hacking', 'Automation', 'Blockchain Technology', 'Software Testing', 
-  'Quantum Computing'
-];
+import categories from '../constants/categories'; // Import categories
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -66,7 +58,10 @@ const Home = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
-  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const paginate = pageNumber => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top of the page
+  };
 
   if (loading) {
     return <Loader />;
@@ -86,8 +81,8 @@ const Home = () => {
           <select value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)}>
             <option value="">All Categories</option>
             {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
+              <option key={category.value} value={category.value}>
+                {category.label}
               </option>
             ))}
           </select>
@@ -150,6 +145,8 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
 };
 
 export default Home;
+
+
 
 
 

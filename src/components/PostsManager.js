@@ -5,30 +5,7 @@ import 'react-quill/dist/quill.snow.css'; // Import Quill CSS
 import Select from 'react-select'; // Import React Select
 import Resizer from 'react-image-file-resizer';
 import '../styles/PostsManager.css';
-
-const categories = [
-  { value: 'Programming', label: 'Programming' },
-  { value: 'Web Development', label: 'Web Development' },
-  { value: 'App Development', label: 'App Development' },
-  { value: 'AI & Machine Learning', label: 'AI & Machine Learning' },
-  { value: 'Data Science', label: 'Data Science' },
-  { value: 'Cybersecurity', label: 'Cybersecurity' },
-  { value: 'Cloud Computing', label: 'Cloud Computing' },
-  { value: 'Hardware', label: 'Hardware' },
-  { value: 'Networking', label: 'Networking' },
-  { value: 'Database Management', label: 'Database Management' },
-  { value: 'Software Engineering', label: 'Software Engineering' },
-  { value: 'DevOps', label: 'DevOps' },
-  { value: 'UX/UI Design', label: 'UX/UI Design' },
-  { value: 'Game Development', label: 'Game Development' },
-  { value: 'Embedded Systems', label: 'Embedded Systems' },
-  { value: 'Virtual Reality (VR) / Augmented Reality (AR)', label: 'Virtual Reality (VR) / Augmented Reality (AR)' },
-  { value: 'Ethical Hacking', label: 'Ethical Hacking' },
-  { value: 'Automation', label: 'Automation' },
-  { value: 'Blockchain Technology', label: 'Blockchain Technology' },
-  { value: 'Software Testing', label: 'Software Testing' },
-  { value: 'Quantum Computing', label: 'Quantum Computing' }
-];
+import categories from '../constants/categories'; // Import categories
 
 const PostsManager = () => {
   const [posts, setPosts] = useState([]);
@@ -43,7 +20,10 @@ const PostsManager = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data, error } = await supabase.from('posts').select('*');
+        const { data, error } = await supabase
+          .from('posts')
+          .select('*')
+          .order('created_at', { ascending: false });
         if (error) throw error;
         setPosts(data || []);
       } catch (error) {
@@ -89,78 +69,78 @@ const PostsManager = () => {
       );
     });
 
-    const handleSaveEdit = async () => {
-      try {
-        if (!editedTitle || !editedContent) {
-          setError('Title and content are required');
-          return;
-        }
-    
-        let imageUrl = ''; // URL till den nya bilden
-    
-        if (newImage) {
-          // Om det finns en gammal bild, ta bort den från Supabase Storage
-          if (editingPost.images && editingPost.images.length > 0) {
-            const oldImagePath = editingPost.images[0]; // Anta att det bara finns en bild
-            const { error: deleteError } = await supabase.storage
-              .from('images')
-              .remove([oldImagePath]);
-    
-            if (deleteError) {
-              throw deleteError;
-            }
-          }
-    
-          // Generera ett unikt filnamn för den nya bilden
-          const uniqueFileName = `${Date.now()}-${newImage.name}`;
-    
-          // Ladda upp den nya bilden till Supabase Storage
-          const { data: uploadData, error: uploadError } = await supabase.storage
-            .from('images')
-            .upload(`/public/images/${uniqueFileName}`, newImage);
-    
-          if (uploadError) {
-            throw uploadError;
-          }
-    
-          // Hämta URL till den uppladdade bilden
-          imageUrl = uploadData.path;
-        } else if (editingPost.images && editingPost.images.length > 0) {
-          imageUrl = editingPost.images[0]; // Behåll den gamla bilden om ingen ny bild laddas upp
-        }
-    
-        const updatedCategories = editedCategories.map(category => category.value);
-    
-        const { error } = await supabase
-          .from('posts')
-          .update({
-            title: editedTitle,
-            content: editedContent,
-            categories: updatedCategories,
-            images: imageUrl ? [imageUrl] : [] // Spara bild-URL som en array
-          })
-          .eq('id', editingPost.id);
-    
-        if (error) {
-          throw error;
-        }
-    
-        // Uppdatera posts state
-        const updatedPosts = posts.map(post =>
-          post.id === editingPost.id
-            ? { ...post, title: editedTitle, content: editedContent, categories: updatedCategories, images: imageUrl ? [imageUrl] : [] }
-            : post
-        );
-        setPosts(updatedPosts);
-        setEditingPost(null);
-        setNewImage(null); // Rensa vald bild
-        setImagePreviewUrl(''); // Rensa förhandsvisning
-        setError(null);
-      } catch (error) {
-        console.error('Error updating post:', error.message);
-        setError(`Error updating post: ${error.message}`);
+  const handleSaveEdit = async () => {
+    try {
+      if (!editedTitle || !editedContent) {
+        setError('Title and content are required');
+        return;
       }
-    };
+
+      let imageUrl = ''; // URL till den nya bilden
+
+      if (newImage) {
+        // Om det finns en gammal bild, ta bort den från Supabase Storage
+        if (editingPost.images && editingPost.images.length > 0) {
+          const oldImagePath = editingPost.images[0]; // Anta att det bara finns en bild
+          const { error: deleteError } = await supabase.storage
+            .from('images')
+            .remove([oldImagePath]);
+
+          if (deleteError) {
+            throw deleteError;
+          }
+        }
+
+        // Generera ett unikt filnamn för den nya bilden
+        const uniqueFileName = `${Date.now()}-${newImage.name}`;
+
+        // Ladda upp den nya bilden till Supabase Storage
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('images')
+          .upload(`/public/images/${uniqueFileName}`, newImage);
+
+        if (uploadError) {
+          throw uploadError;
+        }
+
+        // Hämta URL till den uppladdade bilden
+        imageUrl = uploadData.path;
+      } else if (editingPost.images && editingPost.images.length > 0) {
+        imageUrl = editingPost.images[0]; // Behåll den gamla bilden om ingen ny bild laddas upp
+      }
+
+      const updatedCategories = editedCategories.map(category => category.value);
+
+      const { error } = await supabase
+        .from('posts')
+        .update({
+          title: editedTitle,
+          content: editedContent,
+          categories: updatedCategories,
+          images: imageUrl ? [imageUrl] : [] // Spara bild-URL som en array
+        })
+        .eq('id', editingPost.id);
+
+      if (error) {
+        throw error;
+      }
+
+      // Uppdatera posts state
+      const updatedPosts = posts.map(post =>
+        post.id === editingPost.id
+          ? { ...post, title: editedTitle, content: editedContent, categories: updatedCategories, images: imageUrl ? [imageUrl] : [] }
+          : post
+      );
+      setPosts(updatedPosts);
+      setEditingPost(null);
+      setNewImage(null); // Rensa vald bild
+      setImagePreviewUrl(''); // Rensa förhandsvisning
+      setError(null);
+    } catch (error) {
+      console.error('Error updating post:', error.message);
+      setError(`Error updating post: ${error.message}`);
+    }
+  };
 
   const handleDeleteClick = async (id) => {
     try {
@@ -234,34 +214,27 @@ const PostsManager = () => {
                   type="file"
                   onChange={handleImageChange}
                 />
-                <button className="save" onClick={handleSaveEdit}>Save</button>
-                <button className="cancel" onClick={() => setEditingPost(null)}>Cancel</button>
+                <button onClick={handleSaveEdit}>Save</button>
               </div>
             ) : (
               <div>
-                <h2>{post.title}</h2>
+                <h3>{post.title}</h3>
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
-                <div className="categories">
-                  {post.categories && post.categories.map((category, index) => (
-                    <span key={index} className="category">{category}</span>
-                  ))}
-                </div>
-                <div className="image-preview">
                 {post.images && post.images.length > 0 && (
-                  <img src={`${post.images[0]}`} alt="Post" />
+                  <img src={post.images[0]} alt="Post" />
                 )}
-                </div>
-                <button className="edit" onClick={() => handleEditClick(post)}>Edit</button>
-                <button className="delete" onClick={() => handleDeleteClick(post.id)}>Delete</button>
+                <button onClick={() => handleEditClick(post)}>Edit</button>
+                <button onClick={() => handleDeleteClick(post.id)}>Delete</button>
               </div>
             )}
           </div>
         ))
       ) : (
-        <p>No posts found.</p>
+        <div>No posts found</div>
       )}
     </div>
   );
 };
 
 export default PostsManager;
+
