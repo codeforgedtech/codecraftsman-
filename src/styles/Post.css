@@ -1,4 +1,5 @@
 /* Post.css */
+
 .post {
   padding: 1rem;
   background-color: #f9f9f9;
@@ -79,16 +80,39 @@
 }
 
 /* Bild som flyter till vänster */
-.image-text-item.left .post-image {
+.image-text-item.left .image-container {
   float: left;
   margin-right: 20px; /* Avstånd mellan bild och text */
 }
 
 /* Bild som flyter till höger */
-.image-text-item.right .post-image {
+.image-text-item.right .image-container {
   float: right;
   margin-left: 20px; /* Avstånd mellan bild och text */
 }
+
+/* Container för bilden och datumet */
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Datumet som ligger ovanpå bilden */
+.post-date {
+  position: absolute;
+  top: 15px; /* Justera efter behov */
+  left: 10px; /* Justera efter behov */
+  font-size: 0.8em;
+  color: #fff;
+  background-color: #333;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 2px solid #fff;
+}
+
 .categories {
   margin-top: 2rem;
   width: 100%; /* Anpassa till full bredd */
@@ -97,10 +121,12 @@
   flex-wrap: wrap; /* Tillåter att element går till nästa rad vid behov */
   justify-content: center; /* Centerar element horisontellt */
 }
-.category-link{
+
+.category-link {
   text-decoration: none;
   color: #333;
 }
+
 .categories h4 {
   font-size: 1.25rem;
   color: #333;
@@ -117,7 +143,6 @@
   gap: 0.5rem; /* Mellanrum mellan listobjekt */
   justify-content: center; /* Centerar listobjekt horisontellt */
 }
-/* Post.css */
 
 /* Allmänna kodblock */
 pre {
@@ -145,7 +170,6 @@ code {
   border-radius: 5px;
   padding: 0.5rem 1rem; /* Ökat padding för bättre utseende */
   color: #333;
- 
   font-size: 1rem;
   cursor: pointer; /* Visar att listobjekten är klickbara */
   transition: background-color 0.3s ease; /* För smidig hover-effekt */
@@ -154,6 +178,7 @@ code {
 .categories ul li:hover {
   background-color: #e0e0e0; /* Ljusare bakgrund på hover */
 }
+
 .similar-posts {
   margin-top: 20px;
 }
@@ -179,57 +204,59 @@ code {
   margin-top: 10px;
   font-size: 1em;
 }
-/* För mindre skärmar, ta bort float och gör att bilderna blir fullbredd */
 
-  @media (max-width: 768px) {
-    .post {
-      padding: 1rem; /* Justera padding för bättre användning av utrymme */
-      margin: 0 auto ; /* Centrerar div:en horisontellt */
-      max-width: 100%; /* Full bredd för att utnyttja hela skärmytan */
-    }
-  
-    .post h1 {
-      font-size: 1.5rem; /* Anpassa rubrikstorleken för små skärmar */
-    }
-  
-    .post .content {
-      padding: 1rem; /* Ta bort extra padding för att använda hela bredden */
-      margin: 0 2px 2px 2px; /* Ta bort marginaler för att optimera utrymmet */
-      line-height: 1.6; /* Justera radavståndet för läsbarhet */
-    }
-  
-    .comment-section input {
-      width: calc(100% - 1rem); /* Anpassa bredden för att täcka hela div:en */
-      padding: 0.5rem; /* Justera padding */
-    }
-  
-    .comment-section button {
-      padding: 0.5rem 1rem; /* Justera padding för knappar */
-      font-size: 0.9rem; /* Anpassa textstorlek för knappar */
-    }
-    .similar-posts {
-      margin-top: 20px;
-    }
-    
-    .similar-posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px;
-    }
-    
-    .similar-post-item {
-      text-decoration: none;
-      color: inherit;
-    }
-    
-    .similar-post-thumbnail {
-      width: 100%;
-      height: auto;
-    }
-    
-    .similar-post-title {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 1em;
-    }
+/* För mindre skärmar, ta bort float och gör att bilderna blir fullbredd */
+@media (max-width: 768px) {
+  .post {
+    padding: 1rem; /* Justera padding för bättre användning av utrymme */
+    margin: 0 auto; /* Centrerar div:en horisontellt */
+    max-width: 100%; /* Full bredd för att utnyttja hela skärmytan */
   }
+
+  .post h1 {
+    font-size: 1.5rem; /* Anpassa rubrikstorleken för små skärmar */
+  }
+
+  .post .content {
+    padding: 1rem; /* Ta bort extra padding för att använda hela bredden */
+    margin: 0 2px 2px 2px; /* Ta bort marginaler för att optimera utrymmet */
+    line-height: 1.6; /* Justera radavståndet för läsbarhet */
+  }
+
+  .comment-section input {
+    width: calc(100% - 1rem); /* Anpassa bredden för att täcka hela div:en */
+    padding: 0.5rem; /* Justera padding */
+  }
+
+  .comment-section button {
+    padding: 0.5rem 1rem; /* Justera padding för knappar */
+    font-size: 0.9rem; /* Anpassa textstorlek för knappar */
+  }
+
+  .similar-posts {
+    margin-top: 20px;
+  }
+
+  .similar-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .similar-post-item {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .similar-post-thumbnail {
+    width: 100%;
+    height: auto;
+  }
+
+  .similar-post-title {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1em;
+  }
+}
+

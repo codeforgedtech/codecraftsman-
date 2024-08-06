@@ -40,7 +40,7 @@ const CategoryPosts = () => {
   return (
     <div className="container category-posts">
       <div className="stamp">
-        <h1>{category}</h1>
+        {category}
       </div>
       <div className="posts-list">
         {currentPosts.length > 0 ? (

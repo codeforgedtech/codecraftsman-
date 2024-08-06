@@ -65,6 +65,12 @@ const Post = () => {
     return <Loader />;
   }
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  };
+
   return (
     <div className="container post">
       {post && (
@@ -87,11 +93,14 @@ const Post = () => {
                     key={index}
                     className={`image-text-item ${index % 2 === 0 ? 'left' : 'right'}`}
                   >
-                    <img
-                      src={image}
-                      alt={`Post image ${index}`}
-                      className="post-image"
-                    />
+                    <div className="image-container">
+                      <img
+                        src={image}
+                        alt={`Post image ${index}`}
+                        className="post-image"
+                      />
+                      <div className="post-date">{formatDate(post.created_at)}</div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -114,7 +123,7 @@ const Post = () => {
               )}
             </ul>
           </div>
-          
+
           <div className="similar-posts">
             <h2>Similar Posts</h2>
             {loadingSimilar ? (
@@ -144,6 +153,8 @@ const Post = () => {
 };
 
 export default Post;
+
+
 
 
 

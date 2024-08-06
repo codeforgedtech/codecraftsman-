@@ -1,23 +1,26 @@
+/* Container för hela About-sektionen */
 .about-container {
-    padding: 1.5rem;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     margin: 2rem auto;
-    max-width: 90%; /* Adjusted for better responsiveness */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
+    display: flex;
 }
 
+/* Stil för huvudrubriken */
 .about-header {
     margin-bottom: 20px;
 }
 
-.about-stamp{
+.about-stamp {
     position: absolute;
-    top: -0.13rem;
-    left: -2rem;
-    transform: rotate(-15deg);
+    top: -1rem;
+    left: 1rem;
+    transform: rotate(0deg);
     transform-origin: left top;
     background-color: #f1f1f1;
     padding: 0.5rem 1rem;
@@ -29,12 +32,22 @@
     font-weight: 600;
 }
 
+/* Flexbox container för att styra layouten av About-sektionen */
 .about-content {
+    flex: 1;
     display: flex;
     flex-direction: column; /* Default to column layout on small screens */
     align-items: center;
+    margin-bottom: 20px;
+}
+.comments-section {
+    flex: 1;
+    max-width: 100%; /* Justera bredden för att matcha layouten */
+    padding: 1rem;
+    display: block;  
 }
 
+/* Flexbox container för profilsektionen */
 .profile-section {
     display: flex;
     flex-direction: column; /* Stack image and text vertically on small screens */
@@ -42,6 +55,7 @@
     gap: 20px; /* Space between image and text */
 }
 
+/* Profilbildens stil */
 .profile-picture {
     border-radius: 10%;
     width: 150px; /* Smaller size for mobile */
@@ -49,26 +63,37 @@
     object-fit: cover;
 }
 
+/* Textinnehållens stil */
 .text-content {
     text-align: center; /* Center-align text for better readability on mobile */
     max-width: 100%; /* Use full width for text content */
 }
 
+/* Rubrikstil */
 h2 {
     color: #333;
 }
 
+/* Liststil */
 ul {
     list-style-type: disc;
     margin: 10px 0;
     padding-left: 20px;
 }
 
+/* Paragrafstil */
 p {
     margin: 10px 0;
 }
 
-/* Media Queries for responsiveness */
+/* Media Queries för responsiv layout */
+@media (max-width: 767px) {
+    .about-stamp {
+        font-size: 1rem; /* Mindre storlek på mobilen */
+        padding: 0.25rem 0.5rem; /* Justera padding för mindre storlek */
+    }
+}
+
 @media (min-width: 768px) {
     .about-content {
         flex-direction: row; /* Use row layout for larger screens */
@@ -87,4 +112,10 @@ p {
     .text-content {
         text-align: left; /* Align text to the left on larger screens */
     }
+    .comments-section {
+        display: none;
+    }
 }
+
+
+

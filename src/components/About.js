@@ -12,9 +12,9 @@ const About = () => {
         <meta name="keywords" content="about me, tech blog, technology news, my mission" />
       </Helmet>
       <header className="about-header">
-        <div className="about-stamp">
-          About me
-        </div>
+      <div className="about-stamp">
+        About me
+      </div>
       </header>
       <section className="about-content">
         <div className="profile-section">

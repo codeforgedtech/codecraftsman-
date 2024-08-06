@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import LatestPostsSlider from './LatestPostsSlider';
 import { Helmet } from 'react-helmet';
 import Loader from './Loader';
@@ -12,9 +12,11 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState(''); // Sökterm state
   const [filteredPosts, setFilteredPosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const postsPerPage = 5;
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -46,6 +48,12 @@ const Home = () => {
     setCurrentPage(1); // Reset page to 1 when filter changes
   }, [selectedCategory, searchTerm, posts]);
 
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const page = parseInt(queryParams.get('page')) || 1;
+    setCurrentPage(page);
+  }, [location]);
+
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
   };
@@ -54,13 +62,21 @@ const Home = () => {
     setSearchTerm(event.target.value);
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
-  const paginate = pageNumber => {
+  const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
+    navigate(`?page=${pageNumber}`);
     window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top of the page
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('sv-SE', options); // Format: 6 augusti 2024
   };
 
   if (loading) {
@@ -107,6 +123,7 @@ const Home = () => {
           )}
           <div className="post-info">
             <h2>{post.title}</h2>
+            <p className="post-date-home">{formatDate(post.created_at)}</p>
             <p dangerouslySetInnerHTML={{ __html: post.content.substring(0, 600) }} />
           </div>
         </Link>
@@ -145,6 +162,9 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
 };
 
 export default Home;
+
+
+
 
 
 

@@ -16,6 +16,22 @@ h1 {
   text-align: center;
 }
 
+/* Stil för datumet ovanpå bilden */
+.post-date-home {
+  position: absolute;
+  top: 10px; /* Justera efter behov */
+  left: 10px; /* Justera efter behov */
+  font-size: 0.8em;
+  color: #fff;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 2px solid #fff;
+}
+
 /* Stil för kategorifiltret */
 .category-filter {
   margin-bottom: 20px;
@@ -37,7 +53,6 @@ h1 {
 /* Flexbox container för att styra layouten av filtersektionen */
 .filter-section {
   display: flex;
-  
   align-items: center;
   margin-bottom: 20px;
 }
@@ -59,13 +74,13 @@ h1 {
 
 .search-filter {
   margin-bottom: 20px;
-  
 }
 
 .search-filter h4 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem; /* Lite mellanrum mellan kategoriväljaren och sökrutan */
 }
+
 /* Stil för inläggslänkar */
 .post-link {
   display: flex;

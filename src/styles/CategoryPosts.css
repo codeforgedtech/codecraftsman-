@@ -40,15 +40,18 @@
   }
   .stamp {
     position: absolute;
-    top: 0;
-    right: 0; /* Flytta stämpeln till höger */
-    transform: rotate(10deg); /* Justera vinkeln efter behov */
-    transform-origin: right top; /* Rotera från det övre högra hörnet */
-    background-color: #f1f1f1; /* Bakgrundsfärg för stämpeln */
+    top: -1rem;
+    left: 1 rem;
+    transform: rotate(0deg);
+    transform-origin: left top;
+    background-color: #f1f1f1;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: 600;
   }
   
   /* Anpassa rubrikens stil */
@@ -99,7 +102,12 @@
     border: 1px solid #007bff;
     animation: activePageAnimation 0.3s ease-in-out;
   }
-  
+  @media (max-width: 767px) {
+    .stamp {
+        font-size: 1rem; /* Mindre storlek på mobilen */
+        padding: 0.25rem 0.5rem; /* Justera padding för mindre storlek */
+    }
+}
   @keyframes activePageAnimation {
     0% {
       transform: scale(1);
@@ -116,4 +124,5 @@
       background-color: #007bff;
       color: white;
     }
+    
   }

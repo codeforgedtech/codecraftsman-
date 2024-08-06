@@ -16,7 +16,25 @@
     align-items: flex-start;
     padding: 0 1rem; /* Minska horisontell padding */
   }
+  .footer-bottom {
+    text-align: center;
+    padding: 10px;
+    background: #222;
+    color: #fff;
+  }
   
+  .footer-bottom p {
+    margin: 5px 0;
+  }
+  
+  .footer-bottom a {
+    color: #00aced; /* Exempel på färg, du kan ändra till det du föredrar */
+    text-decoration: none;
+  }
+  
+  .footer-bottom a:hover {
+    text-decoration: underline;
+  }
   .footer-section {
     flex: 1;
     margin: 0.5rem; /* Minska marginal för att spara utrymme */

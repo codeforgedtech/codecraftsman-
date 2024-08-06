@@ -4,8 +4,9 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import Quill CSS
 import Select from 'react-select'; // Import React Select
 import Resizer from 'react-image-file-resizer';
-import '../styles/PostsManager.css';
 import categories from '../constants/categories'; // Import categories
+import Notification from './Notification'; // Import Notification component
+import '../styles/PostsManager.css';
 
 const PostsManager = () => {
   const [posts, setPosts] = useState([]);
@@ -13,9 +14,10 @@ const PostsManager = () => {
   const [editedTitle, setEditedTitle] = useState('');
   const [editedContent, setEditedContent] = useState('');
   const [editedCategories, setEditedCategories] = useState([]);
-  const [newImage, setNewImage] = useState(null); // För ny bild
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(''); // För förhandsvisning av ny bild
+  const [newImage, setNewImage] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -76,12 +78,11 @@ const PostsManager = () => {
         return;
       }
 
-      let imageUrl = ''; // URL till den nya bilden
+      let imageUrl = '';
 
       if (newImage) {
-        // Om det finns en gammal bild, ta bort den från Supabase Storage
         if (editingPost.images && editingPost.images.length > 0) {
-          const oldImagePath = editingPost.images[0]; // Anta att det bara finns en bild
+          const oldImagePath = editingPost.images[0];
           const { error: deleteError } = await supabase.storage
             .from('images')
             .remove([oldImagePath]);
@@ -91,10 +92,8 @@ const PostsManager = () => {
           }
         }
 
-        // Generera ett unikt filnamn för den nya bilden
         const uniqueFileName = `${Date.now()}-${newImage.name}`;
 
-        // Ladda upp den nya bilden till Supabase Storage
         const { data: uploadData, error: uploadError } = await supabase.storage
           .from('images')
           .upload(`/public/images/${uniqueFileName}`, newImage);
@@ -103,10 +102,9 @@ const PostsManager = () => {
           throw uploadError;
         }
 
-        // Hämta URL till den uppladdade bilden
         imageUrl = uploadData.path;
       } else if (editingPost.images && editingPost.images.length > 0) {
-        imageUrl = editingPost.images[0]; // Behåll den gamla bilden om ingen ny bild laddas upp
+        imageUrl = editingPost.images[0];
       }
 
       const updatedCategories = editedCategories.map(category => category.value);
@@ -117,7 +115,7 @@ const PostsManager = () => {
           title: editedTitle,
           content: editedContent,
           categories: updatedCategories,
-          images: imageUrl ? [imageUrl] : [] // Spara bild-URL som en array
+          images: imageUrl ? [imageUrl] : []
         })
         .eq('id', editingPost.id);
 
@@ -125,7 +123,6 @@ const PostsManager = () => {
         throw error;
       }
 
-      // Uppdatera posts state
       const updatedPosts = posts.map(post =>
         post.id === editingPost.id
           ? { ...post, title: editedTitle, content: editedContent, categories: updatedCategories, images: imageUrl ? [imageUrl] : [] }
@@ -133,9 +130,10 @@ const PostsManager = () => {
       );
       setPosts(updatedPosts);
       setEditingPost(null);
-      setNewImage(null); // Rensa vald bild
-      setImagePreviewUrl(''); // Rensa förhandsvisning
+      setNewImage(null);
+      setImagePreviewUrl('');
       setError(null);
+      setSuccessMessage('Post updated successfully');
     } catch (error) {
       console.error('Error updating post:', error.message);
       setError(`Error updating post: ${error.message}`);
@@ -151,7 +149,6 @@ const PostsManager = () => {
         .single();
 
       if (post.images) {
-        // Ta bort alla bilder från Supabase storage
         const deletePromises = post.images.map(image => supabase.storage
           .from('images')
           .remove([image])
@@ -176,6 +173,7 @@ const PostsManager = () => {
       }
 
       setPosts(posts.filter(post => post.id !== id));
+      setSuccessMessage('Post deleted successfully');
     } catch (error) {
       console.error('Error deleting post:', error.message);
       setError(`Error deleting post: ${error.message}`);
@@ -184,7 +182,8 @@ const PostsManager = () => {
 
   return (
     <div className="posts-manager">
-      {error && <div className="error">{error}</div>}
+      <Notification message={error} type="error" />
+      <Notification message={successMessage} type="success" />
       {posts.length > 0 ? (
         posts.map((post) => (
           <div key={post.id} className="post-item">
@@ -214,27 +213,36 @@ const PostsManager = () => {
                   type="file"
                   onChange={handleImageChange}
                 />
-                <button onClick={handleSaveEdit}>Save</button>
+                <button className="save" onClick={handleSaveEdit}>Save</button>
+                <button className="cancel" onClick={() => setEditingPost(null)}>Cancel</button>
               </div>
             ) : (
               <div>
-                <h3>{post.title}</h3>
+                <h2>{post.title}</h2>
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div className="categories">
+                  {post.categories && post.categories.map((category, index) => (
+                    <span key={index} className="category">{category}</span>
+                  ))}
+                </div>
+                <div className="image-preview">
                 {post.images && post.images.length > 0 && (
-                  <img src={post.images[0]} alt="Post" />
+                  <img src={`${post.images[0]}`} alt="Post" />
                 )}
-                <button onClick={() => handleEditClick(post)}>Edit</button>
-                <button onClick={() => handleDeleteClick(post.id)}>Delete</button>
+                </div>
+                <button className="edit" onClick={() => handleEditClick(post)}>Edit</button>
+                <button className="delete" onClick={() => handleDeleteClick(post.id)}>Delete</button>
               </div>
             )}
           </div>
         ))
       ) : (
-        <div>No posts found</div>
+        <p>No posts found.</p>
       )}
     </div>
   );
 };
 
 export default PostsManager;
+
 

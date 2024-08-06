@@ -2,23 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Select from 'react-select'; // Import React Select
+import Select from 'react-select';
+import Pagination from './Pagination';
 import '../styles/Archive.css';
 
 const Archive = () => {
   const [archiveData, setArchiveData] = useState({});
   const [error, setError] = useState(null);
-  const [selectedMonth, setSelectedMonth] = useState(null); // State for selected month
+  const [selectedMonth, setSelectedMonth] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const { data, error } = await supabase
-          .from('posts')
-          .select('id, title, created_at, categories, images')
-          .order('created_at', { ascending: false });
-
-        if (error) {
+  .from('posts')
+  .select('id, title, created_at, categories, images, slug') 
+          if (error) {
           throw error;
         }
 
@@ -60,18 +62,47 @@ const Archive = () => {
     { value: 'augusti', label: 'Augusti' },
     { value: 'september', label: 'September' },
     { value: 'october', label: 'October' },
-    { value: 'november', label: 'November' },
+    { value: 'movember', label: 'November' },
     { value: 'december', label: 'December' }
   ];
 
-  const filteredArchiveData = selectedMonth
-    ? Object.fromEntries(
-        Object.entries(archiveData).map(([year, months]) => [
-          year,
-          { [selectedMonth.value]: months[selectedMonth.value] || [] }
-        ])
-      )
-    : archiveData;
+  const yearOptions = Object.keys(archiveData).map(year => ({
+    value: year,
+    label: year
+  }));
+
+  const filteredArchiveData = Object.entries(archiveData)
+    .filter(([year]) => !selectedYear || year === selectedYear.value)
+    .reduce((acc, [year, months]) => {
+      acc[year] = selectedMonth ? { [selectedMonth.value]: months[selectedMonth.value] || [] } : months;
+      return acc;
+    }, {});
+
+  const allPosts = Object.entries(filteredArchiveData).flatMap(([year, months]) => 
+    Object.entries(months).flatMap(([month, posts]) => posts)
+  );
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = allPosts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    setCurrentPage(1); // Reset to the first page when filters change
+  }, [selectedYear, selectedMonth]);
+
+  const getDisplayTitle = () => {
+    if (selectedYear && selectedMonth) {
+      return `${selectedMonth.label} ${selectedYear.value}`;
+    } else if (selectedYear) {
+      return selectedYear.value;
+    } else if (selectedMonth) {
+      return selectedMonth.label;
+    } else {
+      return 'Archive';
+    }
+  };
 
   return (
     <div className="archive">
@@ -80,8 +111,17 @@ const Archive = () => {
         <meta name="description" content="Browse through our archive of blog posts on technology, programming, and more. Discover older posts that might interest you." />
         <meta name="keywords" content="tech blog archive, programming, technology, older posts" />
       </Helmet>
+     
       {error && <div className="error">{error}</div>}
       <div className="filter">
+        <Select
+          value={selectedYear}
+          onChange={setSelectedYear}
+          options={yearOptions}
+          placeholder="Select year"
+          isClearable
+          classNamePrefix="react-select"
+        />
         <Select
           value={selectedMonth}
           onChange={setSelectedMonth}
@@ -91,62 +131,52 @@ const Archive = () => {
           classNamePrefix="react-select"
         />
       </div>
-      {Object.keys(filteredArchiveData).length > 0 ? (
-        Object.entries(filteredArchiveData).map(([year, months]) => (
-          <div key={year} className="archive-year">
-            <div className="year-stamp">{year}</div>
-            {Object.entries(months).map(([month, posts]) => (
-              <div key={month} className="archive-month">
-                <h3>{month}</h3>
-                <ul>
-                  {posts.map(post => (
-                    <li key={post.id} className="archive-post">
-                      <div className="date-box">
-                        {formatDate(post.created_at)}
-                      </div>
-                      <div className="post-details">
-                        {post.images && post.images.length > 0 && (
-                          <img src={post.images[0]} alt={post.title} className="thumbnail" />
-                        )}
-                        <div className="post-info">
-                          <Link to={`/post/${post.id}`} className="post-title">{post.title}</Link>
-                          <div className="categories">
-                            <h4>Categories</h4>
-                            <ul>
-                              {post.categories && post.categories.length > 0 ? (
-                                post.categories.map((category, index) => (
-                                  <li key={index}>
-                                    <Link to={`/category/${category}`} className="category-link">
-                                      {category}
-                                    </Link>
-                                  </li>
-                                ))
-                              ) : (
-                                <li>No categories</li>
-                              )}
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+      <div className="posts-container">
+        <div className="year-stamp">{getDisplayTitle()}</div>
+        {currentPosts.length > 0 ? (
+          currentPosts.map(post => (
+            <div key={post.id} className="archive-post">
+              <div className="date-box">
+                {formatDate(post.created_at)}
               </div>
-            ))}
-          </div>
-        ))
-      ) : (
-        <p>No posts found.</p>
-      )}
+              <div className="post-details">
+                {post.images && post.images.length > 0 && (
+                  <img src={post.images[0]} alt={post.title} className="thumbnail" />
+                )}
+                <div className="post-info">
+                <Link to={`/post/${post.slug}`} className="post-title">{post.title}</Link>
+                  <div className="categories">
+                    <h4>Categories</h4>
+                    <ul>
+                      {post.categories && post.categories.length > 0 ? (
+                        post.categories.map((category, index) => (
+                          <li key={index}>
+                            <Link to={`/category/${category}`} className="category-link">
+                              {category}
+                            </Link>
+                          </li>
+                        ))
+                      ) : (
+                        <li>No categories</li>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No posts found.</p>
+        )}
+      </div>
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={allPosts.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
     </div>
   );
 };
 
 export default Archive;
-
-
-
-
-
-
-
