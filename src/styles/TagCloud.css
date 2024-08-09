@@ -1,30 +1,32 @@
 .tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px; /* Mellanrum mellan taggarna */
-    background-color: #f4f4f4;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem; /* Justera padding för att minska utrymmet */
-    box-sizing: border-box;  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px; /* Mellanrum mellan taggarna */
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  height: auto; /* Höjd baserat på innehåll */
+  max-height: 300px; /* Begränsa maxhöjd */
+  overflow: hidden; /* Inget scroll */
+  box-sizing: border-box; /* Inkludera padding i höjd och bredd */
 }
 
 .tag {
-    display: flex;
-    align-items: center; /* Vertikal centrering av texten */
-    justify-content: center; /* Horisontell centrering av texten */
-    padding: 10px 70px; /* Justera padding för att styra storleken på taggarna */
-    font-size: 1rem; /* Textstorlek för taggarna */
-    color: #333;
-    text-decoration: none;
-    border-radius: 5px;
-    background-color: #ccc;
-    transition: background-color 0.3s, transform 0.3s;
-    white-space: nowrap; /* Förhindra att texten bryts över flera rader */
-    margin: 0; /* Se till att det inte finns extra marginal */
-  /* Justera radavståndet */
-  }
+  display: flex;
+  align-items: center; /* Vertikal centrering av texten */
+  justify-content: center; /* Horisontell centrering av texten */
+  padding: 8px 16px; /* Justera padding för mindre taggar */
+  font-size: 0.9rem; /* Mindre textstorlek */
+  color: #333;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: #ccc;
+  transition: background-color 0.3s, transform 0.3s;
+  margin: 5px; /* Litet mellanrum mellan taggar */
+  flex-grow: 1; /* Tillåt taggar att växa */
+}
 
 .tag:hover {
   background-color: #333;
