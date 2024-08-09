@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { supabase } from '../supabaseClient';
@@ -8,12 +8,11 @@ import Select from 'react-select';
 import Modal from 'react-modal';
 import categories from '../constants/categories'; // Import categories
 
-// Hjälpfunktion för att generera slug
 const generateSlug = (title) => {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-') // Ersätt icke-alfanumeriska tecken med -
-    .replace(/^-+|-+$/g, ''); // Ta bort ledande och avslutande -
+    .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with -
+    .replace(/^-+|-+$/g, ''); // Remove leading and trailing -
 };
 
 const CreatePost = () => {
@@ -21,8 +20,27 @@ const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [images, setImages] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [availableTags, setAvailableTags] = useState([]);
+  const [newTag, setNewTag] = useState('');
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const loadTags = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('tags')
+          .select('*');
+        if (error) throw error;
+        setAvailableTags(data.map(tag => ({ value: tag.name, label: tag.name })));
+      } catch (error) {
+        console.error('Error loading tags:', error.message);
+      }
+    };
+
+    loadTags();
+  }, []);
 
   const handleCreatePost = async () => {
     if (!title || !content) {
@@ -37,62 +55,48 @@ const CreatePost = () => {
 
     try {
       const imageUrls = [];
-
-      // Generera slug
       const slug = generateSlug(title);
 
-      // Loop through uploaded images
       for (const image of images) {
         const uniqueFileName = `${Date.now()}-${image.file.name}`;
         const resizedImage = await resizeImage(image.file);
 
-        // Upload resized image to Supabase Storage
         const { data: uploadData, error: uploadError } = await supabase.storage
           .from('images')
           .upload(uniqueFileName, resizedImage);
 
-        if (uploadError) {
-          throw uploadError;
-        }
+        if (uploadError) throw uploadError;
 
-        console.log(`Image uploaded: ${uploadData.Key}`);
-
-        // Get public URL for the uploaded image
         const { data: publicUrlData, error: publicUrlError } = await supabase.storage
           .from('images')
           .getPublicUrl(uniqueFileName);
 
-        if (publicUrlError) {
-          throw publicUrlError;
-        }
+        if (publicUrlError) throw publicUrlError;
 
-        const publicURL = publicUrlData.publicUrl;
-        console.log(`Image URL for ${uniqueFileName}:`, publicURL);
-        imageUrls.push(publicURL);
+        imageUrls.push(publicUrlData.publicUrl);
       }
 
-      // Insert post into Supabase database with image URLs, categories, and slug
       const { data: postData, error: insertError } = await supabase.from('posts').insert([
         { 
           title, 
           slug, 
           content, 
           images: imageUrls, 
-          categories: selectedCategories.map(cat => cat.value) 
+          categories: selectedCategories.map(cat => cat.value), 
+          tags: selectedTags.map(tag => tag.value) 
         },
       ]);
 
-      if (insertError) {
-        throw insertError;
-      }
+      if (insertError) throw insertError;
 
-      console.log('Post created:', postData);
       setTitle('');
       setContent('');
       setImages([]);
       setSelectedCategories([]);
-      setError(null); // Clear error state after successful post creation
-      setIsModalOpen(true); // Open the modal after successful post creation
+      setSelectedTags([]);
+      setNewTag('');
+      setError(null);
+      setIsModalOpen(true);
     } catch (error) {
       console.error('Error creating post:', error.message);
       setError(`Error creating post: ${error.message}`);
@@ -106,12 +110,9 @@ const CreatePost = () => {
       const file = files[i];
       const resizedImage = await resizeImage(file);
 
-      setImages((prevImages) => [
+      setImages(prevImages => [
         ...prevImages,
-        {
-          file: file,
-          previewUrl: URL.createObjectURL(resizedImage),
-        },
+        { file: file, previewUrl: URL.createObjectURL(resizedImage) }
       ]);
     }
   };
@@ -125,18 +126,48 @@ const CreatePost = () => {
         'JPEG',
         100,
         0,
-        (uri) => {
-          resolve(uri);
-        },
+        (uri) => resolve(uri),
         'blob',
-        (error) => {
-          reject(error);
-        }
+        (error) => reject(error)
       );
     });
 
   const handleCategoryChange = (selectedOptions) => {
     setSelectedCategories(selectedOptions || []);
+  };
+
+  const handleTagChange = (selectedOptions) => {
+    setSelectedTags(selectedOptions || []);
+  };
+
+  const handleAddTag = async () => {
+    try {
+      if (newTag.trim() === '') return;
+
+      const existingTag = availableTags.find(tag => tag.value === newTag);
+      if (existingTag) {
+        alert('Tag already exists');
+        return;
+      }
+
+      const { error } = await supabase
+        .from('tags')
+        .insert([{ name: newTag }]);
+
+      if (error) throw error;
+
+      const { data, error: fetchError } = await supabase
+        .from('tags')
+        .select('*');
+
+      if (fetchError) throw fetchError;
+
+      setAvailableTags(data.map(tag => ({ value: tag.name, label: tag.name })));
+      setNewTag('');
+    } catch (error) {
+      console.error('Error adding tag:', error.message);
+      setError(`Error adding tag: ${error.message}`);
+    }
   };
 
   const closeModal = () => {
@@ -171,6 +202,23 @@ const CreatePost = () => {
           placeholder="Select categories..."
         />
       </div>
+      <div className="tag-selection">
+        <h4>Select Tags:</h4>
+        <Select
+          isMulti
+          options={availableTags}
+          value={selectedTags}
+          onChange={handleTagChange}
+          placeholder="Select tags..."
+        />
+        <input
+          type="text"
+          value={newTag}
+          onChange={(e) => setNewTag(e.target.value)}
+          placeholder="New tag"
+        />
+        <button onClick={handleAddTag}>Add Tag</button>
+      </div>
       {error && <div className="error">{error}</div>}
       <button onClick={handleCreatePost}>Create Post</button>
 
@@ -189,6 +237,7 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+
 
 
 

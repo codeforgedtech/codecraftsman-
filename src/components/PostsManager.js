@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Import Quill CSS
-import Select from 'react-select'; // Import React Select
+import 'react-quill/dist/quill.snow.css';
+import Select from 'react-select';
 import Resizer from 'react-image-file-resizer';
-import categories from '../constants/categories'; // Import categories
-import Notification from './Notification'; // Import Notification component
+import categories from '../constants/categories';
+import Notification from './Notification';
 import '../styles/PostsManager.css';
+
+// Helper function to fetch tags from Supabase
+const fetchTags = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('tags')
+      .select('*');
+    if (error) throw error;
+    return data.map(tag => ({ value: tag.name, label: tag.name }));
+  } catch (error) {
+    console.error('Error fetching tags:', error.message);
+    return [];
+  }
+};
 
 const PostsManager = () => {
   const [posts, setPosts] = useState([]);
@@ -14,13 +28,16 @@ const PostsManager = () => {
   const [editedTitle, setEditedTitle] = useState('');
   const [editedContent, setEditedContent] = useState('');
   const [editedCategories, setEditedCategories] = useState([]);
+  const [editedTags, setEditedTags] = useState([]);
+  const [availableTags, setAvailableTags] = useState([]);
+  const [newTag, setNewTag] = useState('');
   const [newImage, setNewImage] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const loadPosts = async () => {
       try {
         const { data, error } = await supabase
           .from('posts')
@@ -34,7 +51,13 @@ const PostsManager = () => {
       }
     };
 
-    fetchPosts();
+    const loadTags = async () => {
+      const tags = await fetchTags();
+      setAvailableTags(tags);
+    };
+
+    loadPosts();
+    loadTags();
   }, []);
 
   const handleEditClick = (post) => {
@@ -42,7 +65,8 @@ const PostsManager = () => {
     setEditedTitle(post.title);
     setEditedContent(post.content);
     setEditedCategories(post.categories ? post.categories.map(cat => ({ value: cat, label: cat })) : []);
-    setImagePreviewUrl(post.images && post.images.length > 0 ? `${post.images[0]}` : '');
+    setEditedTags(post.tags ? post.tags.map(tag => ({ value: tag, label: tag })) : []);
+    setImagePreviewUrl(post.images && post.images.length > 0 ? post.images[0] : '');
   };
 
   const handleImageChange = async (event) => {
@@ -61,13 +85,9 @@ const PostsManager = () => {
         'JPEG',
         100,
         0,
-        (uri) => {
-          resolve(uri);
-        },
+        (uri) => resolve(uri),
         'blob',
-        (error) => {
-          reject(error);
-        }
+        (error) => reject(error)
       );
     });
 
@@ -108,6 +128,7 @@ const PostsManager = () => {
       }
 
       const updatedCategories = editedCategories.map(category => category.value);
+      const updatedTags = editedTags.map(tag => tag.value);
 
       const { error } = await supabase
         .from('posts')
@@ -115,6 +136,7 @@ const PostsManager = () => {
           title: editedTitle,
           content: editedContent,
           categories: updatedCategories,
+          tags: updatedTags,
           images: imageUrl ? [imageUrl] : []
         })
         .eq('id', editingPost.id);
@@ -125,7 +147,7 @@ const PostsManager = () => {
 
       const updatedPosts = posts.map(post =>
         post.id === editingPost.id
-          ? { ...post, title: editedTitle, content: editedContent, categories: updatedCategories, images: imageUrl ? [imageUrl] : [] }
+          ? { ...post, title: editedTitle, content: editedContent, categories: updatedCategories, tags: updatedTags, images: imageUrl ? [imageUrl] : [] }
           : post
       );
       setPosts(updatedPosts);
@@ -180,6 +202,31 @@ const PostsManager = () => {
     }
   };
 
+  const handleAddTag = async () => {
+    try {
+      if (newTag.trim() === '') return;
+
+      const existingTag = availableTags.find(tag => tag.value === newTag);
+      if (existingTag) {
+        alert('Tag already exists');
+        return;
+      }
+
+      const { error } = await supabase
+        .from('tags')
+        .insert([{ name: newTag }]);
+
+      if (error) throw error;
+
+      const tags = await fetchTags();
+      setAvailableTags(tags);
+      setNewTag('');
+    } catch (error) {
+      console.error('Error adding tag:', error.message);
+      setError(`Error adding tag: ${error.message}`);
+    }
+  };
+
   return (
     <div className="posts-manager">
       <Notification message={error} type="error" />
@@ -206,6 +253,20 @@ const PostsManager = () => {
                   options={categories}
                   placeholder="Select categories"
                 />
+                <Select
+                  isMulti
+                  value={editedTags}
+                  onChange={setEditedTags}
+                  options={availableTags}
+                  placeholder="Select tags"
+                />
+                <input
+                  type="text"
+                  value={newTag}
+                  onChange={(e) => setNewTag(e.target.value)}
+                  placeholder="New tag"
+                />
+                <button onClick={handleAddTag}>Add Tag</button>
                 {imagePreviewUrl && (
                   <img src={imagePreviewUrl} alt="Preview" className="image-preview" />
                 )}
@@ -225,10 +286,15 @@ const PostsManager = () => {
                     <span key={index} className="category">{category}</span>
                   ))}
                 </div>
+                <div className="tags-manager">
+                  {post.tags && post.tags.map((tag, index) => (
+                    <span key={index} className="tag-manager">{tag}</span>
+                  ))}
+                </div>
                 <div className="image-preview">
-                {post.images && post.images.length > 0 && (
-                  <img src={`${post.images[0]}`} alt="Post" />
-                )}
+                  {post.images && post.images.length > 0 && (
+                    <img src={`${post.images[0]}`} alt="Post" />
+                  )}
                 </div>
                 <button className="edit" onClick={() => handleEditClick(post)}>Edit</button>
                 <button className="delete" onClick={() => handleDeleteClick(post.id)}>Delete</button>
@@ -244,5 +310,3 @@ const PostsManager = () => {
 };
 
 export default PostsManager;
-
-

@@ -20,11 +20,80 @@
   margin: 0; /* Ta bort marginaler för att optimera utrymmet */
   line-height: 1.6; /* Extra utrymme runt texten */
 }
+.share-buttons {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  justify-content: center; /* Center buttons horizontally */
+  margin: 20px 0; /* Space above and below the buttons */
+}
 
+/* Individual share button styling */
+.share-buttons button {
+  border: none; /* Remove default border */
+  background: transparent; /* Remove default background */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Add hover effect to buttons */
+.share-buttons button:hover {
+  transform: scale(1.1); /* Slightly enlarge the button on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+/* Styling for icons */
+.share-buttons .react-share__icon {
+  display: block;
+  border-radius: 50%; /* Round icons */
+  background-color: #f0f0f0; /* Light background for better visibility */
+  padding: 10px; /* Space around icon */
+  width: 40px; /* Width of the icon */
+  height: 40px; /* Height of the icon */
+}
 .comment-section {
   margin-top: 2rem;
 }
+.tags {
 
+  width: 100%; /* Anpassa till full bredd */
+  text-align: center;
+  display: flex; /* Använd Flexbox */
+  flex-wrap: wrap; /* Tillåter att element går till nästa rad vid behov */
+  justify-content: center; /* Centerar element horisontellt */
+}
+
+.tags h4 {
+ 
+  font-size: 1.2em;
+  font-weight: bold;
+  
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-link {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #ccc;
+  background-color: #333; /* Blåaktig färg för taggar */
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: 2px black;
+}
+
+.tag-link:hover {
+ 
+  background-color: white;
+  color:#333
+
+ 
+}
 .comment-section input {
   width: calc(100% - 2rem);
   padding: 0.75rem;

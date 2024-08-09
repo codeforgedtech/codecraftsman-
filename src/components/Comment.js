@@ -13,6 +13,7 @@ const Comment = ({ postId }) => {
   const [replyToCommentId, setReplyToCommentId] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [totalComments, setTotalComments] = useState(0);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -59,11 +60,9 @@ const Comment = ({ postId }) => {
             full_name: user.user_metadata.full_name,
           },
         ]);
-
         if (insertError) {
           throw insertError;
         }
-
         console.log('User saved to database:', user);
       }
     } catch (error) {
@@ -75,11 +74,9 @@ const Comment = ({ postId }) => {
     try {
       // Save the current URL to sessionStorage
       sessionStorage.setItem('redirectAfterLogin', window.location.href);
-
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
       });
-
       if (error) {
         throw error;
       }
@@ -95,7 +92,6 @@ const Comment = ({ postId }) => {
         throw error;
       }
       setUser(null);
-
       // Force a complete sign-out to ensure Google account selection upon next login
       window.location.href = 'https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://www.codecraftsman.se';
     } catch (error) {
@@ -109,12 +105,10 @@ const Comment = ({ postId }) => {
         console.log('Comment content is empty');
         return;
       }
-
       if (!postId) {
         console.log('Post ID is missing');
         return;
       }
-
       const { data, error } = await supabase
         .from('comments')
         .insert([
@@ -127,11 +121,9 @@ const Comment = ({ postId }) => {
           },
         ])
         .single();
-
       if (error) {
         throw error;
       }
-
       setComments([...comments, data]);
       setComment('');
       setModalMessage('Comment posted successfully!');
@@ -151,7 +143,6 @@ const Comment = ({ postId }) => {
         console.log('Reply content is empty or no comment selected');
         return;
       }
-
       const { data, error } = await supabase
         .from('replies')
         .insert([
@@ -164,12 +155,10 @@ const Comment = ({ postId }) => {
           },
         ])
         .single();
-
       if (error) {
         throw error;
       }
-
-      const updatedComments = comments.map(c => 
+      const updatedComments = comments.map(c =>
         c.id === replyToCommentId ? { ...c, replies: [...(c.replies || []), data] } : c
       );
       setComments(updatedComments);
@@ -185,8 +174,6 @@ const Comment = ({ postId }) => {
       console.error('Error adding reply:', error.message);
     }
   };
-
-  const [totalComments, setTotalComments] = useState(0);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -207,19 +194,15 @@ const Comment = ({ postId }) => {
           `)
           .eq('post_id', postId)
           .order('created_at', { ascending: true });
-
         if (error) {
           throw error;
         }
-
         // Calculate the number of replies for each comment
         const commentsWithReplyCount = data.map(comment => ({
           ...comment,
           replyCount: comment.replies ? comment.replies.length : 0
         }));
-
         setComments(commentsWithReplyCount || []);
-
         // Calculate total comments and replies
         const total = commentsWithReplyCount.reduce((acc, comment) => acc + 1 + comment.replyCount, 0);
         setTotalComments(total);
@@ -227,7 +210,6 @@ const Comment = ({ postId }) => {
         console.error('Error fetching comments:', error.message);
       }
     };
-
     fetchComments();
   }, [postId]);
 
@@ -238,6 +220,7 @@ const Comment = ({ postId }) => {
       window.location.href = redirectAfterLogin;
     }
   }, [user]);
+ 
 
   return (
     <div className="comment-section">
@@ -315,6 +298,7 @@ const Comment = ({ postId }) => {
 };
 
 export default Comment;
+
 
 
 

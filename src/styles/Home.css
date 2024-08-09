@@ -1,4 +1,3 @@
-/* Container för hela hemsektionen */
 .container.home {
   padding: 1rem;
   background-color: #f9f9f9;
@@ -123,6 +122,36 @@ h1 {
   font-size: 0.9rem;
 }
 
+/* Stil för tag cloud */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap; /* Allow tags to wrap if necessary */
+  gap: 10px; /* Space between tags */
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  max-height: 400px; /* Limit the height */
+  overflow-y: auto; /* Add scroll if needed */
+}
+
+/* Individual Tag */
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  color: #007bff;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: #e9f6ff;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.tag:hover {
+  background-color: #d0e7ff;
+  transform: translateY(-2px);
+}
+
 /* Stil för paginering */
 .pagination-nav {
   display: flex;
@@ -161,7 +190,6 @@ h1 {
 
 /* Mobilvänlig layout */
 @media (max-width: 768px) {
-  /* Justera filtersektionens layout på mindre skärmar */
   .filter-section {
     flex-direction: column;
     align-items: flex-start;
@@ -171,9 +199,11 @@ h1 {
     margin-left: 0;
     margin-top: 10px; /* Mellanrum mellan kategoriväljaren och sökrutan på mobil */
   }
-  .category-filter{
+
+  .category-filter {
     max-width: 310px;
   }
+
   .search-filter input {
     width: 290px; /* Full bredd på mobil */
   }
@@ -194,5 +224,15 @@ h1 {
   .post-link p,
   .post-link .post-info {
     display: block; /* Visa texten på mindre skärmar */
+  }
+
+  /* Justera tag cloud layout på mindre skärmar */
+  .content {
+    flex-direction: column; /* Stapla inlägg och taggar vertikalt på mobil */
+  }
+
+  .tag-cloud {
+    margin-top: 20px; /* Mellanrum mellan inlägg och taggar på mobil */
+    width: 100%; /* Full bredd på mobil */
   }
 }

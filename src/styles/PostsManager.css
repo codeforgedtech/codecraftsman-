@@ -150,6 +150,37 @@ img {
   border-radius: 5px;
   margin-top: 10px;
 }
+.categories,
+.tags-manager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Avstånd mellan element */
+  margin: 10px 0;
+}
 
+.category,
+.tag-manager {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #007bff; /* En blå bakgrundsfärg */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.category:hover,
+.tag-manger:hover {
+  background-color: #0056b3; /* En mörkare blå vid hover */
+  color: #e0e0e0; /* En ljusare färg vid hover */
+}
+
+.tag-manager {
+  background-color: #28a745; /* En grön bakgrundsfärg för taggar */
+}
+
+.tag-manager:hover {
+  background-color: #218838; /* En mörkare grön vid hover */
+}
   
   

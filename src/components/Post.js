@@ -4,6 +4,14 @@ import { Helmet } from 'react-helmet';
 import { supabase } from '../supabaseClient';
 import Comment from './Comment';
 import Loader from './Loader';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  EmailShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  EmailIcon,
+} from 'react-share';
 import '../styles/Post.css';
 
 const Post = () => {
@@ -71,19 +79,54 @@ const Post = () => {
     return date.toLocaleDateString(undefined, options);
   };
 
+  const shareUrl = `https://codecraftsman.se/post/${post?.slug}`;
+  const shareTitle = post.title || 'Check out this post!';
+  const shareImage = post.images && post.images.length > 0 ? post.images[0] : '/default-image.jpg';
+
   return (
     <div className="container post">
       {post && (
         <>
           <Helmet>
             <title>{post.title} | CodeCraftsMan</title>
-            <meta name="description" content={post.excerpt || 'Read this post to find out more!'} />
+            <meta name="description" content={post.content || 'Read this post to find out more!'} />
             <meta property="og:title" content={post.title} />
-            <meta property="og:description" content={post.excerpt || 'Read this post to find out more!'} />
-            <meta property="og:image" content={post.images && post.images.length > 0 ? post.images[0] : '/default-image.jpg'} />
-            <meta property="og:url" content={`https://codecraftsman.se/post/${post.slug}`} />
-            <meta property="og:type" content={post.title} />
+            <meta property="og:description" content={post.content || 'Read this post to find out more!'} />
+            <meta property="og:url" content={shareUrl} />
+            <meta property="og:type" content="article" />
+            <meta property="og:image" content={shareImage} />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={post.title} />
+            <meta name="twitter:description" content={post.content || 'Read this post to find out more!'} />
+            <meta name="twitter:image" content={shareImage} />
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
+                "headline": post.title,
+                "image": post.images && post.images.length > 0 ? post.images[0] : '/default-image.jpg',
+                "author": {
+                  "@type": "Person",
+                  "name": post.author || 'Author Name'
+                },
+                "publisher": {
+                  "@type": "Organization",
+                  "name": "CodeCraftsMan",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "/logo.png"
+                  }
+                },
+                "mainEntityOfPage": {
+                  "@type": "WebPage",
+                  "@id": `https://codecraftsman.se/post/${post.slug}`
+                },
+                "datePublished": post.created_at,
+                "dateModified": post.updated_at
+              })}
+            </script>
           </Helmet>
+
           <h1>{post.title}</h1>
           <div className="content">
             {post.images && post.images.length > 0 && (
@@ -98,6 +141,7 @@ const Post = () => {
                         src={image}
                         alt={`Post image ${index}`}
                         className="post-image"
+                        loading="lazy"
                       />
                       <div className="post-date">{formatDate(post.created_at)}</div>
                     </div>
@@ -107,6 +151,7 @@ const Post = () => {
             )}
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>
+
           <div className="categories">
             <h4>Categories</h4>
             <ul>
@@ -122,6 +167,34 @@ const Post = () => {
                 <li>No categories</li>
               )}
             </ul>
+          </div>
+
+          <div className="tags">
+            <h4>Tags</h4>
+            <div className="tags-container">
+              {post.tags && post.tags.length > 0 ? (
+                post.tags.map((tag, index) => (
+                  <Link to={`/tag/${tag}`} key={index} className="tag-link">
+                    {tag}
+                  </Link>
+                ))
+              ) : (
+                <span>No tags</span>
+              )}
+            </div>
+          </div>
+
+          <div className="share-buttons">
+            <FacebookShareButton url={shareUrl} quote={shareTitle}>
+              <FacebookIcon size={32} round />
+            </FacebookShareButton>
+
+            <LinkedinShareButton url={shareUrl} title={shareTitle}>
+              <LinkedinIcon size={32} round />
+            </LinkedinShareButton>
+            <EmailShareButton body={shareTitle} url={shareUrl} subject={`Check out this post`}>
+              <EmailIcon size={32} round />
+            </EmailShareButton>
           </div>
 
           <div className="similar-posts">
@@ -156,8 +229,7 @@ export default Post;
 
 
 
-
-
+       
 
 
 

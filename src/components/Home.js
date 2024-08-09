@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import Loader from './Loader';
 import '../styles/Home.css';
 import categories from '../constants/categories'; // Import categories
+import TagCloud from './TagCloud'; // Import TagCloud component
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -91,50 +92,60 @@ const Home = () => {
         <meta name="keywords" content="technology, programming, web development, tech blog, latest articles" />
       </Helmet>
       <LatestPostsSlider posts={posts} />
-      <div className="filter-section">
-        <div className="category-filter">
-          <h4>Filter by Category:</h4>
-          <select value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)}>
-            <option value="">All Categories</option>
-            {categories.map((category) => (
-              <option key={category.value} value={category.value}>
-                {category.label}
-              </option>
+      <div className="content-wrapper">
+        <div className="posts-container">
+     {/* Add TagCloud component here */}
+          <div className="post-list">
+            <div className="filter-section">
+              <div className="category-filter">
+                <h4>Filter by Category:</h4>
+                <select value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)}>
+                  <option value="">All Categories</option>
+                  {categories.map((category) => (
+                    <option key={category.value} value={category.value}>
+                      {category.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="search-filter">
+                <h4>Search:</h4>
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  placeholder="Search posts"
+                />
+              </div>
+            </div>
+
+            {currentPosts.length === 0 && <p>No posts found for this category.</p>}
+
+            {currentPosts.map(post => (
+              <Link to={`/post/${post.slug}`} className="post-link" key={post.slug}>
+                {post.images && post.images.length > 0 && (
+                  <img src={post.images[0]} alt="Post thumbnail" />
+                )}
+                <div className="post-info">
+                  <h2>{post.title}</h2>
+                  <p className="post-date-home">{formatDate(post.created_at)}</p>
+                  <p dangerouslySetInnerHTML={{ __html: post.content.substring(0, 600) }} />
+                </div>
+              </Link>
             ))}
-          </select>
-        </div>
-        <div className="search-filter">
-          <h4>Search:</h4>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            placeholder="Search posts"
-          />
-        </div>
-      </div>
 
-      {currentPosts.length === 0 && <p>No posts found for this category.</p>}
-
-      {currentPosts.map(post => (
-        <Link to={`/post/${post.slug}`} className="post-link" key={post.slug}>
-          {post.images && post.images.length > 0 && (
-            <img src={post.images[0]} alt="Post thumbnail" />
-          )}
-          <div className="post-info">
-            <h2>{post.title}</h2>
-            <p className="post-date-home">{formatDate(post.created_at)}</p>
-            <p dangerouslySetInnerHTML={{ __html: post.content.substring(0, 600) }} />
+            
           </div>
-        </Link>
-      ))}
-
+          <TagCloud /> 
+        </div>
+        
+      </div>
       <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={filteredPosts.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
+              postsPerPage={postsPerPage}
+              totalPosts={filteredPosts.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
     </div>
   );
 };
