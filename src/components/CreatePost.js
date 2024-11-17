@@ -30,8 +30,8 @@ const CreatePost = () => {
       return;
     }
 
-    if (images.length > 4) {
-      setError('You can upload a maximum of 4 images');
+    if (images.length > 10) {
+      setError('You can upload a maximum of 10 images');
       return;
     }
 
@@ -106,6 +106,10 @@ const CreatePost = () => {
     }
   };
 
+  const handleRemoveImage = (index) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
   const resizeImage = (file) =>
     new Promise((resolve, reject) => {
       Resizer.imageFileResizer(
@@ -150,7 +154,10 @@ const CreatePost = () => {
         <div>
           <h4>Selected Images:</h4>
           {images.map((image, index) => (
-            <img key={index} src={image.previewUrl} alt={`Selected ${index}`} />
+            <div key={index} className="image-preview">
+              <img src={image.previewUrl} alt={`Selected ${index}`} />
+              <button onClick={() => handleRemoveImage(index)}>Remove</button>
+            </div>
           ))}
         </div>
       )}
@@ -175,6 +182,8 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+
+
 
 
 
